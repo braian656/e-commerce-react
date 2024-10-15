@@ -1,24 +1,26 @@
 import { useContext, useEffect, useReducer, useState } from "react"
-import Error from "./Error"
+import Error from "../errors-component/Error"
 import ChoseColor from "./ChoseColor"
 import Cantidad from "./Cantidad"
 import ButtonPag from "../buttons-component/ButtonPag"
 import { contextProducts } from "../context/context"
+import { useNavigate } from "react-router-dom"
 import SignIn from "../registro-components/SignIn"
 
 function Pagina({actualUser,onClick, setSliderActive}){
-    console.log(actualUser)
+
+    const navigate = useNavigate()
     const {actualProduct, setActualProduct, productData, setOpenPagProduct,openPagProduct} = useContext(contextProducts)
     const [noUser, setNoUser] = useState(true)
     const [preferenceUser, setPreferenceUser] = useState({}) 
     const [showMesaggeErr, setShowMessageErr] = useState(false)
     const [message, setMessage] = useState('')
+    const [txtButton , setTxtButton] = useState('')
 
     const [ item, setItems ] = useState([])
 
     const [quantity, setQuantity] = useState(1)
 
-    // sliderInactive(false)
     const handlePreference =(e)=>{
         
         // falta poner el producto pelotudo
@@ -38,7 +40,6 @@ function Pagina({actualUser,onClick, setSliderActive}){
         // aca no se refleja el cambio
 
         if(Object.keys(preferenceUser).length !== 0){
-            console.log('Aca verifica si el obj no esta vacio')
             
             for(const [key, value] of Object.entries(preferenceUser)){    
 
@@ -52,12 +53,17 @@ function Pagina({actualUser,onClick, setSliderActive}){
             }
         }else{
             setMessage('Rellene los campos necesarios para realizar su compra')
+            setTxtButton('CERRAR')
             setShowMessageErr(true)
         }
         // verificar si el usuario compro sin cuenta, y si lo hizo mandarlo a crearse una cuenta
 
         if(actualUser === null){
             setNoUser(false)
+            setMessage('Debe ingresar para realizar la compra.')
+            setTxtButton('IR A MI CUENTA')
+            setShowMessageErr(true)
+            // navigate("/SignIn")
         }
     }
 
@@ -83,18 +89,23 @@ function Pagina({actualUser,onClick, setSliderActive}){
 
     useEffect(()=>{
         setSliderActive(false)
-
     }, [])
 
-    const handdleClassPag = openPagProduct ? 'flex' : 'hidden';
-
-    console.log(openPagProduct)
     return(
 
-    <section className={`p-2 bg-body ${handdleClassPag} justify-center items-center flex-col`}>
-        {noUser == false ? <SignIn></SignIn> : null}
+    <section className={`p-2 bg-body flex justify-center items-center flex-col`}>
+        {/* {noUser == false ? <SignIn setOpenPagProduct={setOpenPagProduct}></SignIn> : null} */}
+        {/* DEsaparece por que lo estoy renderizando dentro del componente que quiero ocultar,salame */}
 
-        <Error visible={showMesaggeErr} setVisible={setShowMessageErr} messageModal={message}></Error>
+        <Error 
+        visible={showMesaggeErr} 
+        setVisible={setShowMessageErr} 
+        messageModal={message}
+        txtButton={txtButton}
+        actualUser = {actualUser}
+        colorBtn='bg-green-500'
+        >
+        </Error>
         
         <div id={actualProduct.index} className="product bg-button sm:flex sm:h-[80vh]">
 
@@ -156,7 +167,11 @@ function Pagina({actualUser,onClick, setSliderActive}){
                         COMPRAR
                     </button> */}
 
-                    <ButtonPag text="COMPRAR" onClick={handdleData}></ButtonPag>
+                    <ButtonPag 
+                    text="COMPRAR" 
+                    onClick={handdleData} 
+                    clr="bg-button2">
+                    </ButtonPag>
                 </div>
             </div>
 

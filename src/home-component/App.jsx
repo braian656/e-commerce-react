@@ -5,7 +5,7 @@ import { Routes, Route} from "react-router-dom"
 import ProductsContext  from '../context/ProductsContext';
 
 
-import SignIn from '../registro_components/SignIn';
+import SignIn from '../registro-components/SignIn';
 import Header from '../header-component/Header';
 import SectionProducts from '../listProducts-component/Section_products';
 import Slider from '../slider-component/Slider';
@@ -122,10 +122,14 @@ GitHub
     actualUser={actualUser} 
     setActualUser={setActualUser}
     modalShow={modalShow}
-    setUserLog={setUserLog}></Header>
+    setUserLog={setUserLog}>
+    </Header>
     <main>   
 
-        <Slider setSliderActive={setSliderActive} sliderActive={sliderActive}></Slider>
+        <Slider 
+        setSliderActive={setSliderActive} 
+        sliderActive={sliderActive}>
+        </Slider>
 
         <Routes>
           <Route 

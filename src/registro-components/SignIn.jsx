@@ -2,11 +2,9 @@ import { useContext, useEffect, useState } from "react"
 import InputRegistro from "./InputRegistro"
 import { contextProducts } from "../context/context"
 
-function SignIn({setSliderActive,sliderActive,users}){
+function SignIn({setOpenPagProduct,setSliderActive,sliderActive,users}){
 
-    const [productData] = useContext(contextProducts)
-    console.log(productData)
-
+    console.log('Por que mierda no funcionas hijo de puta')
     const [verifyAccount,setVerifyAccount] = useState({ email : '', password : '',}) 
 
     
@@ -52,6 +50,8 @@ function SignIn({setSliderActive,sliderActive,users}){
         if(sliderActive == true){
             setSliderActive(false)
         }
+        
+        // setOpenPagProduct(false)
         // setSliderActive(false)
     })
 
@@ -59,7 +59,6 @@ function SignIn({setSliderActive,sliderActive,users}){
         <section className="sig-in bg-hero-sigIn bg-cover bg-no-repeat bg-center flex justify-center items-center relative  w-full h-[600px]">
             <form onSubmit={submitForm} className="w-full bg-button2 p-5 sm:w-3/5">
                     <h1 className="text-center font-bold text-3xl text-button">Ingresar</h1>
-
                         <InputRegistro 
                         id="email" 
                         name="email" 
@@ -76,6 +75,9 @@ function SignIn({setSliderActive,sliderActive,users}){
                         onChange={changeForm}>           
                         </InputRegistro>
                 <div className="btns flex justify-center items-center flex-col">
+                <span className="font-bold text-center pointer">
+                    AUN NO TENGO UNA CUENTA
+                </span>
                 <button 
                 type="submit"
                 className="mt-3 text-button2 font-bold  bg-button p-3 w-1/2 ease-out duration-700 hover:bg-white hover:text-button">
