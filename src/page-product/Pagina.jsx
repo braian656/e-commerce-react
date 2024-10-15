@@ -4,7 +4,7 @@ import ChoseColor from "./ChoseColor"
 import Cantidad from "./Cantidad"
 import ButtonPag from "../buttons-component/ButtonPag"
 import { contextProducts } from "../context/context"
-import SignIn from "../registro_components/SignIn"
+import SignIn from "../registro-components/SignIn"
 
 function Pagina({actualUser,onClick, setSliderActive}){
     console.log(actualUser)

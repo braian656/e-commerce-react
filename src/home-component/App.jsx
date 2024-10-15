@@ -12,8 +12,8 @@ import Slider from '../slider-component/Slider';
 import Footer from '../footer-component/Footer'
 
 import ProductsList from '../whishList-component/ProductsList'
-import Registro from '../registro_components/Registro';
-import DashboardUser from '../registro_components/DashboardUser';
+import Registro from '../registro-components/Registro';
+import DashboardUser from '../registro-components/DashboardUser';
 import Pagina from '../page-product/Pagina';
 import '../App.css'
 import '../output.css'
