@@ -4,12 +4,10 @@ import { contextProducts } from "../context/context"
 
 function SignIn({setSliderActive,sliderActive,users}){
 
-    const [productData] = useContext(contextProducts)
-    console.log(productData)
+
 
     const [verifyAccount,setVerifyAccount] = useState({ email : '', password : '',}) 
 
-    console.log(productData)
     
 
     const submitForm = (e)=>{
