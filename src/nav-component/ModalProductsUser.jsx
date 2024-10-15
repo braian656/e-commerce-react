@@ -1,11 +1,8 @@
-import { useState } from "react"
-
+import { useState, useContext } from "react"
+import { contextProducts } from "../context/context"
 
 
 function ModalProductsUser({id,image,product,price, onClick}){
-
-
-
 
     // Debemos sumar cada producto y mostra el total
     // console.log(price)
@@ -14,6 +11,8 @@ function ModalProductsUser({id,image,product,price, onClick}){
 
     // const currentPrice = [...price]
     // const total = currentPrice.reduce((acc, curr)=> acc + curr);
+
+
 
     return (
             
@@ -27,10 +26,12 @@ function ModalProductsUser({id,image,product,price, onClick}){
                         <h1 className="title text-white font-bold">{product}</h1>
                         <h2 className="precio text-xl py-2 font-normal text-text leading-5">{price}$</h2>
                     </div>
-                    <button onClick={()=>onClick(id)} className="bg-white p-4 ease-out duration-700 hover:bg-button2 hover:scale-105">
+                    <button onClick={()=>onClick(id, price)} className="bg-white p-4 ease-out duration-700 hover:bg-button2 hover:scale-105">
                         <i className="fa-solid fa-trash"></i>
                     </button>
-                </li>
+            </li>
+
+            
             
 
             </>

@@ -2,7 +2,6 @@
 function ChoseColor ({clr1, clr2, clr3, onClick}){
     const colors = [clr1, clr2, clr3]
 
-    console.log(colors)
     const mapColors = colors.map((clr, index)=>(
         <button 
 

@@ -1,14 +1,17 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import InputRegistro from "./InputRegistro"
+import { contextProducts } from "../context/context"
 
 
 
-function SignIn({users}){
+function SignIn({setSliderActive,sliderActive,users}){
+    const [productData] = useContext(contextProducts)
 
-    const [verifyAccount, setVerifyAccount] = useState({
-        email : '',
-        password : '',
-    }) 
+
+    const [verifyAccount,setVerifyAccount] = useState({ email : '', password : '',}) 
+
+    console.log(productData)
+    
 
     const submitForm = (e)=>{
         e.preventDefault()
@@ -46,6 +49,13 @@ function SignIn({users}){
 
         setVerifyAccount(newValues)
     }
+    useEffect(()=>{
+
+        if(sliderActive == true){
+            setSliderActive(false)
+        }
+        // setSliderActive(false)
+    })
 
     return(
         <section className="sig-in bg-hero-sigIn bg-cover bg-no-repeat bg-center flex justify-center items-center relative  w-full h-[600px]">

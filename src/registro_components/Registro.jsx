@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Routes, Route} from "react-router-dom"
 import { Link } from 'react-router-dom';
 
@@ -6,8 +6,7 @@ import InputRegistro from "./InputRegistro"
 
 import React from "react";
 
-function Registro({setUserLog,sliderState, slider, addUsers, users, setActualUser}){
-    
+function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, users, setActualUser}){
     const [haveErr, setHaveErr] = useState(false)
     const [error, setError] = useState([]);
     const [isValid, setIsValid] = useState(true)
@@ -75,10 +74,7 @@ function Registro({setUserLog,sliderState, slider, addUsers, users, setActualUse
     
         }
         if(!verifyPasswords(password)){                  
-            errors.push({password: `La contaseña debe tener: Al menos un dígito.
-                            Al menos una letra minúscula.
-                            Al menos una letra mayúscula.
-                            Al menos 8 caracteres en total.`})
+            errors.push({password: `La contraseña no coincide`})
     
         }
         if(!verifyPassMatch(password)){
@@ -130,7 +126,7 @@ function Registro({setUserLog,sliderState, slider, addUsers, users, setActualUse
     evt.preventDefault()
     
     console.log('Por que se envian los datos?')
-
+    
     
 
     if(validate()){
@@ -140,7 +136,6 @@ function Registro({setUserLog,sliderState, slider, addUsers, users, setActualUse
 
         setActualUser(dataUser)
         setUserLog(true)
-    
         setDataUser(
             {
                 name: "",
@@ -151,46 +146,36 @@ function Registro({setUserLog,sliderState, slider, addUsers, users, setActualUse
             }
         )
 
+
+
+    }else{
+        console.log('Que puta mierda')
     }
     
 
     }
 
     function handleChange(evt){
-
-
-        /*set toma el target, evt: evento, target:que disparo el evt
-        se guarda ese dato.*/
-
-        
-        
             const { target } = evt;
             const { name, value } = target;
-
-            /*
-            Este snippet:
-            1. Clona el estado actual
-            2. Reemplaza solo el valor del
-            input que ejecutó el evento
-            */
             const newValues = {
                 ...dataUser,
                 [name]: value
             };
-                // Sincroniza el estado de nuevo
-            setDataUser(newValues);
-
-        
-
+            setDataUser(newValues);        
     }
-
+    useEffect(()=>{
+        
+        
+        setSliderActive(false)
+    }, [])
 
     return (
 
         <section className="bg-body flex justify-center items-center flex-col relative">
-
-        <div className="center flex justify-center items-center w-full">
-            <div className="bg-red-500 w-4/5 h-[600px] flex justify-center items-center overflow-hidden">
+            
+        <div className="center flex justify-center items-center w-full flex-col sm:flex-row">
+            <div className="sm:w-4/5 sm:h-[600px] flex justify-center items-center overflow-hidden">
                 
                 <img
                     className="w-full h-full object-cover"
@@ -199,8 +184,7 @@ function Registro({setUserLog,sliderState, slider, addUsers, users, setActualUse
                 />
             </div>
             {/* <h1 className="absolute top-0 font-bold text-3xl text-button">Registro de usuario</h1> */}
-            <form onSubmit={handleSubmit} className="bg-button2 w-1/2 h-[600px] p-5">
-
+            <form onSubmit={handleSubmit} className="bg-button2 w-full sm:w-1/2 h-[600px] p-5">
                 <InputRegistro 
                 id="name"
                 name="name" 
@@ -247,7 +231,11 @@ function Registro({setUserLog,sliderState, slider, addUsers, users, setActualUse
                 onChange={handleChange}
                 setHaveErrs={setHaveErr}
                 haveErrs={haveErr}
-                err={error}>           
+                err={error}
+                textPassword='La contaseña debe tener: Al menos un dígito.
+                            Al menos una letra minúscula.
+                            Al menos una letra mayúscula.
+                            Al menos 8 caracteres en total'>           
                 </InputRegistro>
 
                 <InputRegistro 
@@ -269,7 +257,7 @@ function Registro({setUserLog,sliderState, slider, addUsers, users, setActualUse
                 </span>
             <button 
                 type="submit"
-                className="mt-3 text-button2 font-bold  bg-button p-3 w-1/2 ease-out duration-700 hover:bg-white hover:text-text">
+                className="mt-3 text-button2 font-bold  bg-button p-3 w-1/2 ease-out duration-700 hover:bg-white hover:text-button">
                     Registrarse
                 </button>
             </div>

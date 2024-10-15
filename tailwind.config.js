@@ -1,40 +1,3 @@
-// @type {import('tailwindcss').Config}
-
-// export default {
-//   content: [
-//     "./index.html",
-//     './src/**/*.{html,js,jsx,ts,tsx}',
-//   ],
-//   theme: {
-//     extend: {},
-//   },
-//   plugins: [],
-// }
-
-// // tailwind.config.js
-// module.exports = {
-//   theme: {
-//     extend: {
-//       colors: {
-//         anchor:'#343a40',
-//         title: '#17281b', // Azul personalizado
-//         text: '#b0b0b0', // Naranja personalizado
-//         button: '#ffb42e',
-//         body:'#dfdfdf',
-//         button2: '#e09c0f',
-//       },
-//       spacing: {
-//         '128': '32rem', // Añadir un nuevo espaciado
-//       },
-//       fontFamily: {
-//         custom: ['"Roboto"', 'sans-serif'], // Fuente personalizada
-//       },
-//     },
-//   },
-//   plugins: [],
-// }
-
-// @type {import('tailwindcss').Config}
 
 export default {
   content: [
@@ -55,7 +18,9 @@ export default {
         button: '#2b2c30', // Naranja personalizado
         body: '#dfdfdf',   // Gris claro personalizado
         button2: '#e4bc2c', // amarillo oscuro personalizado
-        buttonBrillant : 'linear-gradient(135deg, #000000,%20#ffcc00)'
+        buttonBrillant : 'linear-gradient(135deg, #000000,%20#ffcc00)',
+        buttonHover: '#c79f22',
+
       },
       spacing: {
         '128': '32rem',    // Añadir nuevo espaciado

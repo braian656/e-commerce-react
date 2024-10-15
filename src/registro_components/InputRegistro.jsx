@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
-function InputRegistro({id ,name, type, text,value, onChange, err, setHaveErrs, haveErrs}){
- 
+function InputRegistro({id ,name, type, text,value, onChange, err, setHaveErrs, haveErrs,textPassword}){
+    console.log(err)
     const [actualErr, setActualErr] = useState('');
     const [activeMsj, setActiveMsj] = useState(false)
     function handleErrors() {
@@ -56,8 +56,10 @@ function InputRegistro({id ,name, type, text,value, onChange, err, setHaveErrs, 
             placeholder={text} 
             required
             /> 
-
-            <span className="absolute top-10 right-5 text-xs font-bold"> 
+            <p className="text-xs text-start text-wrap w-80">
+                {textPassword}
+            </p>
+            <span className="absolute top-10 -right-2 text-xs font-bold"> 
                 {activeMsj && <p className="text-red-600 duration-300 ease-out">{actualErr}</p>}
             </span>
         </div>

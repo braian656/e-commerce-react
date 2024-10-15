@@ -1,9 +1,8 @@
 
 
 
-function DashboardUser({setUserLog, actualUser, setActualUser}){
+function DashboardUser({setSliderActive,setUserLog, actualUser, setActualUser}){
 
-    console.log(actualUser)
 
     function signOut(){
         setActualUser(
@@ -21,6 +20,8 @@ function DashboardUser({setUserLog, actualUser, setActualUser}){
 
 
     }
+
+    setSliderActive(false)
 
     return(
                 
