@@ -18,22 +18,18 @@ function ModalProductsUser({id,image,product,price, onClick}){
             
 
             <>
-            <li id={id} className="p-2 border-b-2 flex items-center justify-around">
-                    <div className="image w-20 h-20 object-cover overflow-hidden rounded-md">
-                        <img src={image} alt={product} className="min-w-full h-auto"/>
+                <li id={id} className="p-4 border-b-2 border-gray-300 flex items-center justify-between gap-4 bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                    <div className="image w-20 h-20 overflow-hidden rounded-md flex-shrink-0">
+                        <img src={image} alt={product} className="object-cover w-full h-full"/>
                     </div>
-                    <div className="info text-center">
-                        <h1 className="title text-white font-bold">{product}</h1>
-                        <h2 className="precio text-xl py-2 font-normal text-text leading-5">{price}$</h2>
+                    <div className="info text-left flex-1">
+                        <h1 className="title text-white font-semibold text-lg">{product}</h1>
+                        <h2 className="precio text-lg py-2 font-medium text-gray-400">{price}$</h2>
                     </div>
-                    <button onClick={()=>onClick(id, price)} className="bg-white p-4 ease-out duration-700 hover:bg-button2 hover:scale-105">
+                    <button onClick={() => onClick(id, price)} className="bg-red-500 text-white p-3 rounded-lg hover:bg-red-600 transform hover:scale-105 transition-transform duration-300">
                         <i className="fa-solid fa-trash"></i>
                     </button>
-            </li>
-
-            
-            
-
+                </li>
             </>
                 
     )

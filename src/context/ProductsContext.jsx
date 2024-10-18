@@ -172,6 +172,7 @@ const techProducts = [
 
     const [selectingPrice, setSelectingPrice] = useState(null)
     const [productCart, setProductCart] = useState([]);
+    const [textErr, setTextErr] = useState('')
     
 
     const pagProduct = (_id, _image, _product, _description, _price)=>{
@@ -187,23 +188,42 @@ const techProducts = [
       console.log('Abrir Product', actualProduct)
       
     }
-    console.log('Producto carrito', productCart)
+   
+
     const productsSelecting = (id,image,product,price)=>{
-      setSelectingPrice(price)
-      const item = {id:id, value:product, cost:price, img:image}
-      setProductCart([...productCart, item])
+      const buscarDuplicado = productCart.find((product)=> product.id == id)
+
+      if(!buscarDuplicado){
+
+        const item = {id:id, value:product, cost:price, img:image}
+
+        setProductCart((prevProduct) => [...prevProduct, item]);
+  
+        
+        setSelectingPrice(item.cost)
+
+      }else{
+        setTextErr('Producto Ya añadido')
+        return
+      }
+
+  
     }
     
     const renderTotalPrice = useMemo(() => {
-      return totalPrice.reduce((acc, curr) => acc + curr, 0);
+      const sumProducts = totalPrice.reduce((acc, curr) => acc + curr, 0);
+      return sumProducts
       }, [totalPrice]);
     
-
+    
     useEffect(() => {
       if (selectingPrice !== null && !totalPrice.includes(selectingPrice)) {
         setTotalPrice((prevPrice) => [...prevPrice, selectingPrice]);
+        setSelectingPrice(null)
+        // no lo limpiada, por eso quedaba guardado el ultimo numeoro
       }
-    }, [selectingPrice, totalPrice]); // Añadimos totalPrice como dependencia
+    }, [selectingPrice, totalPrice]); 
+    // Añadimos totalPrice como dependencia
     
   
 
@@ -223,7 +243,8 @@ const techProducts = [
           setActualProduct,
           renderTotalPrice,
           openPagProduct,
-          setOpenPagProduct
+          setOpenPagProduct,
+          textErr
         }}>
 
         {children}

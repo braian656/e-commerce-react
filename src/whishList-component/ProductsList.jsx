@@ -18,7 +18,11 @@ function ProductsList({setSliderActive,items}){
     ))
 // cuando se guarde aca , se debe mostrar siempre
 
-    setSliderActive(false)
+
+    useEffect(()=>{
+        setSliderActive(false)
+
+    }, [])
     return(
 
         <section id="wishList" className="p-2 bg-body flex justify-center items-center flex-wrap min-h-screen">

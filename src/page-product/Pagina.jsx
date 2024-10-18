@@ -64,6 +64,12 @@ function Pagina({actualUser,onClick, setSliderActive}){
             setTxtButton('IR A MI CUENTA')
             setShowMessageErr(true)
             // navigate("/SignIn")
+        }else{
+            setMessage('Compra realizada con exito!')
+            setShowMessageErr(true)
+            setTxtButton('Aceptar')
+
+            return
         }
     }
 

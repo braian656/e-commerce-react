@@ -40,7 +40,6 @@ Aunque tienes un README.md, este se podría mejorar con más detalles, como inst
 GitHub
 )*/
   const [circle,setCircle] = useState({x:0,y:0})
-  const [modalProduct, setModalProduct] = useState(false)
 
   const [sliderActive, setSliderActive] = useState(true)
   const [users , setUsers] = useState([])
@@ -62,11 +61,7 @@ GitHub
 
 
 
-  const seeModalProduct = (event)=>{
-    event.stopPropagation()
-    setModalProduct(!modalProduct)
-  }
-  const modalShow = modalProduct ? 'block translate-y-0  transition duration-500 ease-[cubic-bezier(0.4, 0, 0.2, 1)]   opacity-100 z-40' : 'hidden -translate-y-full -z-10 opacity-0'
+  
 
   // const ulRef = useRef(null)
   // const [hasChildren, setHasChildren] = useState(false)
@@ -116,12 +111,8 @@ GitHub
 
 <ProductsContext>
     <Header 
-    onClick={seeModalProduct} 
-    modalProduct={modalProduct} 
-    setModalProduct={setModalProduct} 
     actualUser={actualUser} 
     setActualUser={setActualUser}
-    modalShow={modalShow}
     setUserLog={setUserLog}>
     </Header>
     <main>   

@@ -1,24 +1,38 @@
 import { Link } from 'react-router-dom';
-import { useContext, useRef, useEffect } from 'react';
+import { useContext, useRef, useEffect, useState } from 'react';
 import { contextProducts } from '../context/context';
+import { ChevronDown } from 'lucide-react'
 import ModalProductsUser from '../nav-component/ModalProductsUser';
 import UserNav from '../nav-component/UserNav';
 import EmptyCart from '../errors-component/EmpyCart'
 import c from 'croppie';
 
 
-function Header({onClick, actualUser,modalShow,setUserLog, setActualUser}){
+function Header({ actualUser,setUserLog, setActualUser}){
     const {productCart,setProductCart, totalPrice, setTotalPrice,renderTotalPrice} = useContext(contextProducts)
+  
+    const [menuOpen, setMenuOpen] = useState(false)
+    const [modalProduct, setModalProduct] = useState(false)
 
     const removeProductFromCart = (id, price)=>{
 
-      const removeProduct = productCart.filter((product) => product.id !== id)   
+        const removeProduct = productCart.filter((product) => product.id !== id)   
+        setProductCart(removeProduct)
+  
+        setTotalPrice((prevPrice)=>{
+            const index = prevPrice.indexOf(price)
+  
+            if(index > -1){
+              const updatePrice = [...prevPrice]
+              updatePrice.splice(index, 1)
+              console.log('Remueve el precio?',updatePrice)
+              return updatePrice
+            }
+  
+  
+            return prevPrice
+        })
 
-      const indexPrice = totalPrice.indexOf(price)
-      const removePrice = totalPrice.splice(indexPrice,1)
-
-      setTotalPrice(removePrice)
-      setProductCart(removeProduct)
     }
 
 
@@ -33,35 +47,64 @@ function Header({onClick, actualUser,modalShow,setUserLog, setActualUser}){
       </ModalProductsUser>
     ))
 
+    const openMenu = ()=>{
+      setMenuOpen(!menuOpen)
+      console.log('Esta el carro abiero?',modalProduct)
+
+      if(modalProduct === true){
+        setModalProduct(false)
+      }
+
+    }
+
+    const seeModalProduct = (event)=>{
+      // event.stopPropagation()
+      setModalProduct(!modalProduct)
+      if(menuOpen === true){
+        setMenuOpen(false)
+      }
+      
+    }
+    const modalShow = modalProduct ? 'block translate-y-0  transition duration-500 ease-[cubic-bezier(0.4, 0, 0.2, 1)] opacity-100 z-40' : 'hidden -translate-y-full -z-10 opacity-0'
+    // const handleClassMenu = menuOpen ? '-translate-y-full z-10' : 'translate-y-0 z-50'
+        const handleClassMenu = menuOpen ? 'translate-y-0 z-50' : '-translate-y-full z-10'
+
+    const hanndleClassTotal =  totalPrice.length === 0 ? 'hidden' : 'flex'
+  
 
     return(
       <header className='bg-button p-2'>
 
-        <nav className='flex justify-between items-center z-50'>
-          <h2 className="logo text-red-500 font-extrabold">E-comm</h2>
+        <nav className='flex justify-between items-center '>
+          <h2 className="logo text-red-500 font-extrabold z-50">E-comm</h2>
           
-          <ul className='hidden sm:flex sm:items-center'>
-            <li>
+          <ul className={`menu-sm ${handleClassMenu} bg-button sm:relative sm:top-0 sm:translate-y-0 sm:w-auto sm:h-auto sm:flex sm:flex-row sm:items-center sm:justify-center z-40`}>
+            
+            <li className='mb-5 sm:mb-0'>
               <Link to="/" className='text-anchor font-bold py-2 px-4'>
                 INICIO
               </Link>
             </li>
-            <li>
+            <li className='mb-5 sm:mb-0'>
               <Link to="/wishlist" className='text-anchor font-bold py-2 px-4'>
                 MI LISTA
               </Link>        
             </li>
-            <li className='bg-button2 px-1 py-2 text-text'>
+            <li className='bg-button2 px-1 py-2 mb-5 text-text sm:mb-0'>
               <Link to="/micuenta" className='text-anchor font-bold py-2 px-4'>
                 MI CUENTA
               </Link>
             </li>
-  
+            
           </ul>  
-  
           <button 
-          className='bg-button2 px-1 py-2 ease-out duration-700 border-2 border-transparent hover:border-solid hover:border-button2 hover:bg-button hover:scale-105 hover:text-button2'
-          onClick={onClick}>
+          className='z-50 sm:hidden'
+          onClick={openMenu}>      
+            <ChevronDown size={32} color="rgb(228 188 44)" />
+          </button>
+          <button 
+          className='bg-button2 z-50 px-1 py-2 ease-out duration-700 border-2 border-transparent hover:border-solid hover:border-button2 hover:bg-button hover:scale-105 hover:text-button2'
+          onClick={seeModalProduct}>
             <span className='text-red-500 px-1 font-semibold rounded-md'>{productCart.length}</span>
             <i className="fa-solid fa-cart-shopping"></i>
           </button>
@@ -90,7 +133,7 @@ function Header({onClick, actualUser,modalShow,setUserLog, setActualUser}){
           min-h-auto`}>
           <ul>
   
-            <h1 className={` text-center font-semibold text-2xl p-3 text-text`}>
+            <h1 className={`text-center font-semibold text-2xl p-3 text-text`}>
               {Object.values(productCart).length == 0 ? <EmptyCart></EmptyCart> : ''}
             </h1>
             {showShoppingCart}
@@ -99,7 +142,7 @@ function Header({onClick, actualUser,modalShow,setUserLog, setActualUser}){
             
           </ul>
           
-          <div className={`flex total_price justify-around items-center`}>
+          <div className={`${hanndleClassTotal} total_price justify-around items-center`}>
   
               <span className="total_title text-text">Total</span>
               <span className="total text-button2 font-normal text-xl">

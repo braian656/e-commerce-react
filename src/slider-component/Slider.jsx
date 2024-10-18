@@ -9,11 +9,12 @@ import 'swiper/css/navigation';
 
 // import './styles.css';
 import '../style.css'
+import '../index.css'
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
-
+import SliderInfo from './SliderInfo';
 // Importa los módulos necesarios
 function Slider ({setSliderActive, sliderActive})  {
 
@@ -21,7 +22,7 @@ function Slider ({setSliderActive, sliderActive})  {
     const hanndleClass = !sliderActive ? 'hidden' : 'block'
     return (
         <>
-        <div className={`${hanndleClass} relative`}>
+        <div className={`${hanndleClass}`}>
         <Swiper
             spaceBetween={50}
             centeredSlides={true}
@@ -36,24 +37,26 @@ function Slider ({setSliderActive, sliderActive})  {
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper">
             <SwiperSlide>
-                <img 
-            
-                className='object-cover z-10'
-                src="https://images.pexels.com/photos/26600776/pexels-photo-26600776/free-photo-of-mar-puesta-de-sol-playa-oceano.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                <img   
+                className='img-slider relative object-cover'
+                src="https://i.pinimg.com/564x/b0/f1/15/b0f1157a4402f1a760a8dfb70c8ccd59.jpg" 
                 alt="" />
+                <SliderInfo></SliderInfo>
+            </SwiperSlide>
+            {/* <SwiperSlide>
+                <img 
+                className='img-slider object-cover z-10'
+                src="./images/img2mi.jpg"
+                alt=""
+                />
+                
             </SwiperSlide>
             <SwiperSlide>
                 <img 
-                className='object-cover z-10'
-                src="https://images.pexels.com/photos/26704682/pexels-photo-26704682/free-photo-of-naturaleza-agua-fotografia-de-animales-delfin.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                className='img-slider object-cover z-10'
+                src="./images/img3.jpg" 
                 alt="" />
-            </SwiperSlide>
-            <SwiperSlide>
-                <img 
-                className='object-cover z-10'
-                src="https://images.pexels.com/photos/15304506/pexels-photo-15304506/free-photo-of-camara-lente-objetivo-antiguo.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                alt="" />
-            </SwiperSlide>
+            </SwiperSlide> */}
             {/* <SwiperSlide>Slide 4</SwiperSlide>
             <SwiperSlide>Slide 5</SwiperSlide>
             <SwiperSlide>Slide 6</SwiperSlide>
@@ -61,10 +64,7 @@ function Slider ({setSliderActive, sliderActive})  {
             <SwiperSlide>Slide 8</SwiperSlide>
             <SwiperSlide>Slide 9</SwiperSlide> */}
         </Swiper>
-        <div className="caja absolute bottom-10 z-60">
-
-            <h1 className='font-bold text-red-500'>Esto es una caja tio</h1>
-        </div>
+    
         </div>
         
         </>

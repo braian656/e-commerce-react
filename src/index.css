@@ -66,3 +66,55 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
+
+.img-slider{
+  /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); */
+}
+
+
+.boxs-info > div{
+  background: rgba(255, 255, 255, 0.1); 
+}
+.menu-sm{
+  position: absolute;
+  top: 60px;
+  left: 0;
+  height: 500px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: transform 0.5s ease-out;
+  /* z-index: -1; */
+}
+
+/* @media (width < 640px) {
+    .menu-sm{
+      transform: none;
+      background-color: green;
+    }
+} */
+
+/* <ul className='menu-sm bg-button 
+sm:relative sm:top-0 sm:translate-x-0 
+sm:w-auto sm:h-auto sm:flex sm:flex-row 
+sm:items-center sm:justify-center z-40'> */
+/* .menu-md{
+  position: relative;
+  top: 0;
+  transform: translateY(0);
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 40;
+} */
+
+.menu-sm.active{
+  z-index: 100;
+  transform: translateY(0);
+}
+

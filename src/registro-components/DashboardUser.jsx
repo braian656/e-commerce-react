@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 
 
 
@@ -21,11 +22,13 @@ function DashboardUser({setSliderActive,setUserLog, actualUser, setActualUser}){
 
     }
 
-    setSliderActive(false)
+    useEffect(()=>{
+        setSliderActive(false)
+    }, [])
 
     return(
                 
-        <section className="bg-body flex justify-center items-center flex-col relative">
+        <section className="bg-body flex justify-center items-center flex-col relative py-3">
             <article className="user p-2">
             <div className="img h-52 w-52 rounded-full overflow-hidden">
                 <img className="w-full h-full object-cover" src="https://i.pinimg.com/564x/52/1d/f6/521df6ecd68b081a175122b5b7477ba7.jpg" alt="" />
