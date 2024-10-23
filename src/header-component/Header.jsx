@@ -59,6 +59,7 @@ function Header({ actualUser,setUserLog, setActualUser}){
 
     const seeModalProduct = (event)=>{
       // event.stopPropagation()
+      console.log('que mierda esta pasando aca')
       setModalProduct(!modalProduct)
       if(menuOpen === true){
         setMenuOpen(false)
@@ -67,13 +68,32 @@ function Header({ actualUser,setUserLog, setActualUser}){
     }
     const modalShow = modalProduct ? 'block translate-y-0  transition duration-500 ease-[cubic-bezier(0.4, 0, 0.2, 1)] opacity-100 z-40' : 'hidden -translate-y-full -z-10 opacity-0'
     // const handleClassMenu = menuOpen ? '-translate-y-full z-10' : 'translate-y-0 z-50'
-        const handleClassMenu = menuOpen ? 'translate-y-0 z-50' : '-translate-y-full z-10'
+    const handleClassMenu = menuOpen ? 'translate-y-0 z-50' : '-translate-y-full z-10'
 
     const hanndleClassTotal =  totalPrice.length === 0 ? 'hidden' : 'flex'
   
+    const boxUserProduct = useRef(null)
+    const buttonSeeModal = useRef(null)
+
+    useEffect(()=>{
+      const handleClick = (e)=>{
+        if(e.target !== boxUserProduct.current && e.target !== buttonSeeModal.current){
+          setModalProduct(false)
+        }else{
+          seeModalProduct(true)
+        }
+      }
+
+      window.addEventListener('click', handleClick)
+
+      return () => {
+        window.removeEventListener('click', handleClick);
+      };
+    },[])
+
 
     return(
-      <header className='bg-button p-2'>
+      <header className='bg-button p-2 fixed z-50 right-0 left-0'>
 
         <nav className='flex justify-between items-center '>
           <h2 className="logo text-red-500 font-extrabold z-50">E-comm</h2>
@@ -103,6 +123,7 @@ function Header({ actualUser,setUserLog, setActualUser}){
             <ChevronDown size={32} color="rgb(228 188 44)" />
           </button>
           <button 
+          ref={buttonSeeModal}
           className='bg-button2 z-50 px-1 py-2 ease-out duration-700 border-2 border-transparent hover:border-solid hover:border-button2 hover:bg-button hover:scale-105 hover:text-button2'
           onClick={seeModalProduct}>
             <span className='text-red-500 px-1 font-semibold rounded-md'>{productCart.length}</span>
@@ -122,7 +143,9 @@ function Header({ actualUser,setUserLog, setActualUser}){
         : null}
   
         <div 
-          className={`${modalShow} 
+          ref={boxUserProduct}
+          className={
+          `${modalShow} 
           w-full 
           absolute
           left-0 

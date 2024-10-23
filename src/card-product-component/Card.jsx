@@ -1,5 +1,6 @@
 
 function ProductCard({id,image,product, description,price}){
+
     return(
         <article id={id} className="cursor-pointer w-full  overflow-hidden shadow-lg bg-white m-3 sm:w-80 h-1/3 hover:drop-shadow-lg">
           <div>

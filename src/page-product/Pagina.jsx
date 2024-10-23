@@ -80,6 +80,7 @@ function Pagina({actualUser,onClick, setSliderActive}){
       </span>
     ));
 
+    console.log(actualProduct)
     useEffect(()=>{
 
 
@@ -100,9 +101,6 @@ function Pagina({actualUser,onClick, setSliderActive}){
     return(
 
     <section className={`p-2 bg-body flex justify-center items-center flex-col`}>
-        {/* {noUser == false ? <SignIn setOpenPagProduct={setOpenPagProduct}></SignIn> : null} */}
-        {/* DEsaparece por que lo estoy renderizando dentro del componente que quiero ocultar,salame */}
-
         <Error 
         visible={showMesaggeErr} 
         setVisible={setShowMessageErr} 
@@ -113,18 +111,18 @@ function Pagina({actualUser,onClick, setSliderActive}){
         >
         </Error>
         
-        <div id={actualProduct.index} className="product bg-button sm:flex sm:h-[80vh]">
+        <div id={actualProduct.index} className="product-pag bg-button mb-12 mt-16 sm:flex sm:justify-center sm:items-center">
 
-            <div className="product_image bg-white h-full min-w-[420px]">
+            <div className="product_image bg-white h-80 rounded-none sm:h-[500px] sm:w-[40%] sm:min-w-[220px] sm:rounded-md">
                 <img 
                 src={actualProduct.image}
                 alt={actualProduct.product}
-                className="w-full h-full object-contain object-center sm:h-full sm:w-auto" />
+                className="w-full h-full sm:h-auto object-contain object-center sm:h-full sm:w-auto" />
             </div>
 
-            <div className="producto_detail p-5 sm:w-[50%]">
+            <div className="producto_detail p-5 sm:w-[56%] flex justify-center items-center">
                 <div className="detail w-full">
-                    <span className="category text-button2 font-semibold text-xs">TECNOLOGIA</span>
+                    <span className="category text-button2 font-semibold text-xs">{actualProduct.productCategory}ss</span>
                     <h1 className="name text-white text-xl font-semibold sm:my-3">{actualProduct.product}</h1>
 
                     <div className="price flex justify-between items-center">
@@ -142,7 +140,7 @@ function Pagina({actualUser,onClick, setSliderActive}){
                         </p>
                     </div>
 
-                    <div className="preference flex  items-center sm:my-5">
+                    <div className="preference flex items-center sm:my-5">
 
                         <ChoseColor
                         onClick={handlePreference} 
@@ -164,16 +162,10 @@ function Pagina({actualUser,onClick, setSliderActive}){
                     </div>
                     <button 
                     onClick={(e)=> { onClick(actualProduct.index, actualProduct.image, actualProduct.product, actualProduct.descr, actualProduct.total);}}
-                    className="add_to_list mt-2.5 text-white font-bold rounded-md p-4 w-full border-2 border-solid border-white ease-out duration-700 hover:border-button2 hover:text-button2">
+                    className="add_to_list mt-2.5 text-white font-bold rounded-md p-4 border-2 border-solid border-white ease-out duration-700 hover:border-button2 hover:text-button2">
                         Agregar a lista de deseo
                     </button>                  
-                    {/* <button 
-                    onClick={handdleData}
-                    className="add mt-3 text-button font-bold rounded-md bg-button2 p-4 w-full ease-out duration-700 hover:bg-button2">
-                        COMPRAR
-                    </button> */}
-
-                    <ButtonPag 
+                      <ButtonPag 
                     text="COMPRAR" 
                     onClick={handdleData} 
                     clr="bg-button2">

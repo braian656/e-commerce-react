@@ -36,33 +36,41 @@ function Slider ({setSliderActive, sliderActive})  {
     
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper">
+
             <SwiperSlide>
+
                 <img   
                 className='img-slider relative object-cover'
-                src="https://i.pinimg.com/564x/b0/f1/15/b0f1157a4402f1a760a8dfb70c8ccd59.jpg" 
-                alt="" />
+                src="./images/img-product-1.jpg" 
+                alt="Imagen Producto 1" />
+
                 <SliderInfo></SliderInfo>
+
             </SwiperSlide>
+
             {/* <SwiperSlide>
+
                 <img 
-                className='img-slider object-cover z-10'
-                src="./images/img2mi.jpg"
-                alt=""
+                className='img-slider relative object-cover z-10'
+                src="./images/img-product-2.jpg"
+                alt="Imagen Producto 2"
                 />
+
+                <SliderInfo></SliderInfo>
                 
             </SwiperSlide>
+
             <SwiperSlide>
+
                 <img 
-                className='img-slider object-cover z-10'
-                src="./images/img3.jpg" 
-                alt="" />
+                className='img-slider relative object-cover z-10'
+                src="./images/img-product-3.jpg" 
+                alt="Imagen Producto 3" />
+
+                <SliderInfo></SliderInfo>
+
             </SwiperSlide> */}
-            {/* <SwiperSlide>Slide 4</SwiperSlide>
-            <SwiperSlide>Slide 5</SwiperSlide>
-            <SwiperSlide>Slide 6</SwiperSlide>
-            <SwiperSlide>Slide 7</SwiperSlide>
-            <SwiperSlide>Slide 8</SwiperSlide>
-            <SwiperSlide>Slide 9</SwiperSlide> */}
+
         </Swiper>
     
         </div>

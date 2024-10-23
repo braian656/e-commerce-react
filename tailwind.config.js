@@ -20,6 +20,7 @@ export default {
         button2: '#e4bc2c', // amarillo oscuro personalizado
         buttonBrillant : 'linear-gradient(135deg, #000000,%20#ffcc00)',
         buttonHover: '#c79f22',
+        buttonPagination:"#ef4444",
 
       },
       spacing: {

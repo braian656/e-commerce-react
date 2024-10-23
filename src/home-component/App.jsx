@@ -5,6 +5,7 @@ import { Routes, Route} from "react-router-dom"
 import ProductsContext  from '../context/ProductsContext';
 
 
+
 import SignIn from '../registro-components/SignIn';
 import Header from '../header-component/Header';
 import SectionProducts from '../listProducts-component/Section_products';
@@ -15,8 +16,11 @@ import ProductsList from '../whishList-component/ProductsList'
 import Registro from '../registro-components/Registro';
 import DashboardUser from '../registro-components/DashboardUser';
 import Pagina from '../page-product/Pagina';
+import ContainerCardHome from './ContainerCardHome';
 import '../App.css'
 import '../output.css'
+import Pagination  from '../pagination-btns/PaginationBtns';
+import SelectCategory from '../select-category/SelectCategory';
 
 
 
@@ -115,12 +119,25 @@ GitHub
     setActualUser={setActualUser}
     setUserLog={setUserLog}>
     </Header>
-    <main>   
+    <main className='bg-body'>   
 
         <Slider 
         setSliderActive={setSliderActive} 
         sliderActive={sliderActive}>
+          {/* debo cambiar el nombre de sliderActive, lo uso en otros componenter
+          s */}
         </Slider>
+
+
+        <ContainerCardHome
+        setSliderActive={setSliderActive} 
+        sliderActive={sliderActive}>  
+        </ContainerCardHome>
+        {/* select category deberia estar dentro del componente de las card creo
+         */}
+
+        {/* <SelectCategory></SelectCategory> */}
+
 
         <Routes>
           <Route 
@@ -189,9 +206,12 @@ GitHub
           </Route>
         </Routes>
 
-
-  
+      <Pagination
+      sliderActive={sliderActive}
+      ></Pagination>
+        
     </main>
+
    
     </ProductsContext>
     <Footer></Footer>
