@@ -93,7 +93,7 @@ function Header({ actualUser,setUserLog, setActualUser}){
 
 
     return(
-      <header className='bg-button p-2 fixed z-50 right-0 left-0'>
+      <header className='bg-button p-2 sticky z-50 top-0'>
 
         <nav className='flex justify-between items-center '>
           <h2 className="logo text-red-500 font-extrabold z-50">E-comm</h2>
@@ -122,15 +122,32 @@ function Header({ actualUser,setUserLog, setActualUser}){
           onClick={openMenu}>      
             <ChevronDown size={32} color="rgb(228 188 44)" />
           </button>
-          <button 
-          ref={buttonSeeModal}
-          className='bg-button2 z-50 px-1 py-2 ease-out duration-700 border-2 border-transparent hover:border-solid hover:border-button2 hover:bg-button hover:scale-105 hover:text-button2'
-          onClick={seeModalProduct}>
-            <span className='text-red-500 px-1 font-semibold rounded-md'>{productCart.length}</span>
-            <i className="fa-solid fa-cart-shopping"></i>
-          </button>
+          <div className="btns-cart flex">
+
+            <button 
+            ref={buttonSeeModal}
+            className='bg-button2 z-50 px-1 py-2 ease-out duration-700 border-2 border-transparent hover:border-solid hover:border-button2 hover:bg-button hover:scale-105 hover:text-button2'
+            onClick={seeModalProduct}>
+              <span className='text-red-500 px-1 font-semibold rounded-md'>{productCart.length}</span>
+              <i className="fa-solid fa-cart-shopping"></i>
+            </button>
+
+
+            {actualUser !== null 
+          
+            ? 
+
+            <UserNav 
+            setUserLog={setUserLog} 
+            actualUser={actualUser} 
+            setActualUser={setActualUser}
+            ></UserNav>
+
+            : 
+            null}
+          </div>
         </nav>
-        {actualUser !== null 
+        {/* {actualUser !== null 
         
         ? 
 
@@ -140,7 +157,7 @@ function Header({ actualUser,setUserLog, setActualUser}){
         setActualUser={setActualUser}
         ></UserNav>
 
-        : null}
+        : null} */}
   
         <div 
           ref={boxUserProduct}

@@ -17,6 +17,7 @@ function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, use
     //         error : []
     // })
 // el componete siempre necesita un estado inicial:
+    // mover la logica de comparacion a otro componente
     const [dataUser, setDataUser] = useState(
         {
         name: "",

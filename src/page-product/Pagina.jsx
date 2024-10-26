@@ -10,77 +10,96 @@ import SignIn from "../registro-components/SignIn"
 function Pagina({actualUser,onClick, setSliderActive}){
 
     const navigate = useNavigate()
-    const {actualProduct, setActualProduct, productData, setOpenPagProduct,openPagProduct} = useContext(contextProducts)
-    const [noUser, setNoUser] = useState(true)
-    const [preferenceUser, setPreferenceUser] = useState({}) 
-    const [showMesaggeErr, setShowMessageErr] = useState(false)
-    const [message, setMessage] = useState('')
-    const [txtButton , setTxtButton] = useState('')
+    const {actualProduct, setActualProduct, productData, setOpenPagProduct,openPagProduct,setPurchasedProducts, purchasedProducts} = useContext(contextProducts)
+    const [noUser, setNoUser] = useState(true) /*Verifico si el user tiene cuenta o no*/
+    const [preferenceUser, setPreferenceUser] = useState([]) /*Guarda las preferencias,color, cantidad, producto*/
+    const [showMesaggeErr, setShowMessageErr] = useState(false) /*Muestra el modal msj si es true*/
+    const [message, setMessage] = useState('')  /*Mensaje a mostrar en el modal*/
+    const [txtButton , setTxtButton] = useState('') /*titulo del boton en el modal*/
 
     const [ item, setItems ] = useState([])
 
-    const [quantity, setQuantity] = useState(1)
-
-    const handlePreference =(e)=>{
-        
-        // falta poner el producto pelotudo
-        const name = e.target.name
-        const value = e.target.dataset.clr
-
+    const [quantity, setQuantity] = useState(1) /*Cantidad de producto a ordenar, por defecto siempre 1*/
+   
+    const handlePreference = (e) => {
+        const name = e.target.name;
+        const value = e.target.dataset.clr;
+    
+        // Creamos la nueva preferencia
         const preference = {
-            producto : actualProduct.product,
-            color: value,
-            cantidad : quantity,
+            producto: actualProduct.product, // asegúrate de que actualProduct.product tenga un valor válido
+            color: value, // aseguramos que e.target.dataset.clr sea válido
+            cantidad: quantity, // aseguramos que quantity tenga un valor válido
+        };
+    
+        // Guardamos la nueva preferencia en el array de preferencias del usuario
+        setPreferenceUser(prevState => ([ ...prevState, preference ]));
+    
+        return;
+    };
+    
+    const handleData = () => {
+        console.log('Preferencias del usuario:', preferenceUser);
+    
+        // Si el usuario no ha iniciado sesión
+        if (actualUser === null) {
+            setNoUser(false);
+            setMessage('Debe ingresar para realizar la compra.');
+            setTxtButton('IR A MI CUENTA');
+            setShowMessageErr(true);
+
+            return;
         }
-        setPreferenceUser(prevState => ({ ...prevState, preference }));
-    }
-
-    const handdleData = ()=>{
-        // problema cuando cliqueo en mas o menos, de el comp Cantidad,
-        // aca no se refleja el cambio
-
-        if(Object.keys(preferenceUser).length !== 0){
-            
-            for(const [key, value] of Object.entries(preferenceUser)){    
-
-                if(value !== undefined || value !== '' && value > 0){
-                    console.log(key, value)
-                    setItems(prevList => [...prevList, preferenceUser]);
-                }else{
-                    console.log('seleccione todo de nuevo')
-                    setShowMessageErr(true)
+    
+        // Si el usuario ha ingresado, verificar que las preferencias no estén vacías
+        if (preferenceUser.length !== 0) {
+            let allFieldsFilled = true;
+    
+            // Iterar sobre el array de preferencias y verificar que los valores no sean indefinidos o vacíos
+            for (const preference of preferenceUser) {
+                if (
+                    !preference.producto || 
+                    !preference.color || 
+                    preference.cantidad <= 0 || 
+                    preference.cantidad === undefined
+                ) {
+                    allFieldsFilled = false;
+                    break;
                 }
             }
-        }else{
-            setMessage('Rellene los campos necesarios para realizar su compra')
-            setTxtButton('CERRAR')
-            setShowMessageErr(true)
+    
+            if (allFieldsFilled) {
+                // Si todos los campos son válidos
+                setPurchasedProducts(prevProducts => [...prevProducts, ...preferenceUser]);
+                // esto evita un anidado de arr
+                setMessage('¡Compra realizada con éxito!');
+                setShowMessageErr(true);
+                setTxtButton('Aceptar');
+            } else {
+                // Si algún campo es inválido
+                console.log('Algún campo no se ha rellenado correctamente');
+                setMessage('Rellene los campos necesarios para realizar su compra');
+                setTxtButton('CERRAR');
+                setShowMessageErr(true);
+            }
+        } else {
+            // Si no hay ninguna preferencia
+            console.log('No se han rellenado las preferencias del usuario');
+            setMessage('Rellene los campos necesarios para realizar su compra');
+            setTxtButton('CERRAR');
+            setShowMessageErr(true);
         }
-        // verificar si el usuario compro sin cuenta, y si lo hizo mandarlo a crearse una cuenta
-
-        if(actualUser === null){
-            setNoUser(false)
-            setMessage('Debe ingresar para realizar la compra.')
-            setTxtButton('IR A MI CUENTA')
-            setShowMessageErr(true)
-            // navigate("/SignIn")
-        }else{
-            setMessage('Compra realizada con exito!')
-            setShowMessageErr(true)
-            setTxtButton('Aceptar')
-
-            return
-        }
-    }
+    };
+    
 
     const [num, setNum] = useState();
     const showStars = Array.from({ length: num }, (_, i) => (
-      <span key={i} className="text-button2 m-0.5 hover:text-buttonHover">
+    <span key={i} className="text-button2 m-0.5 hover:text-buttonHover">
         <i className="fa-regular fa-star"></i>
-      </span>
+    </span>
     ));
 
-    console.log(actualProduct)
+    // console.log(actualProduct)
     useEffect(()=>{
 
 
@@ -165,10 +184,10 @@ function Pagina({actualUser,onClick, setSliderActive}){
                     className="add_to_list mt-2.5 text-white font-bold rounded-md p-4 border-2 border-solid border-white ease-out duration-700 hover:border-button2 hover:text-button2">
                         Agregar a lista de deseo
                     </button>                  
-                      <ButtonPag 
-                    text="COMPRAR" 
-                    onClick={handdleData} 
-                    clr="bg-button2">
+                    <ButtonPag 
+                        text="COMPRAR" 
+                        onClick={handleData} 
+                        clr="bg-button2">
                     </ButtonPag>
                 </div>
             </div>

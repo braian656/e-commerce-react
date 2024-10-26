@@ -33,7 +33,8 @@ const ProductsContext = ({children})=>{
     const [categories, setCategories] = useState([])
     const [userSelectedCategory, setUserSelectedCategory] = useState(['All'])
     const [someErr, setSomeErr] = useState('')
-
+    const [purchasedProducts , setPurchasedProducts] = useState([])
+    const [picUser, setPicUser] = useState('/images/profile.png')
     const getApiProducts = async()=>{
      try{
       const data = await fetch('https://fakestoreapi.com/products')
@@ -137,7 +138,11 @@ const ProductsContext = ({children})=>{
           categories,
           someErr,
           userSelectedCategory,
-          setUserSelectedCategory
+          setUserSelectedCategory,
+          purchasedProducts,
+          setPurchasedProducts,
+          picUser,
+          setPicUser
         }}>
 
         {children}
