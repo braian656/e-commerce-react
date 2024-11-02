@@ -35,6 +35,7 @@ const ProductsContext = ({children})=>{
     const [someErr, setSomeErr] = useState('')
     const [purchasedProducts , setPurchasedProducts] = useState([])
     const [picUser, setPicUser] = useState('/images/profile.png')
+    
     const getApiProducts = async()=>{
      try{
       const data = await fetch('https://fakestoreapi.com/products')
@@ -42,6 +43,7 @@ const ProductsContext = ({children})=>{
 
       
       setProductData(prod)
+      console.log(prod)
 
       prod.forEach(element => {
         return setCategories(element.category)
@@ -58,17 +60,17 @@ const ProductsContext = ({children})=>{
 
     },[])
 
-    const pagProduct = (_id, _image, _product, _description, _price,_category)=>{
-      
-      console.log(_category)
+    const pagProduct = (_id, _image, _product, _description, _price,_category, _rating)=>{
       setActualProduct(({
         index : _id,
         image : _image,
         product : _product,
         descr : _description,
         total : _price,
-        productCategory : _category
+        productCategory : _category,
+        rating: _rating
       }));
+
       setOpenPagProduct(true)
       
     }
@@ -85,19 +87,20 @@ const ProductsContext = ({children})=>{
   
         
         setSelectingPrice(item.cost)
+        setTextErr('')
 
       }else{
-        setTextErr('Producto Ya añadido')
+        setTextErr('Producto añadido recientemente...')
         return
       }
 
   
     }
-    
+
     const renderTotalPrice = useMemo(() => {
       const sumProducts = totalPrice.reduce((acc, curr) => acc + curr, 0);
       return sumProducts
-      }, [totalPrice]);
+    }, [totalPrice]);
     
     
     useEffect(() => {
@@ -142,7 +145,9 @@ const ProductsContext = ({children})=>{
           purchasedProducts,
           setPurchasedProducts,
           picUser,
-          setPicUser
+          setPicUser,
+          textErr,
+          setTextErr
         }}>
 
         {children}

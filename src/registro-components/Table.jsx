@@ -6,19 +6,23 @@ import { useEffect, useContext, useState } from "react"
 
 function Table(){
     const {purchasedProducts} = useContext(contextProducts)
-    const [empty, setEmpty] = useState('')
-
-    useEffect(()=>{
-        if(purchasedProducts.lenght === 0){
-            setEmpty('No hay Comprar realizadas.')
-        }
-    })
+    const isEmpty = purchasedProducts.length !== 0 ? 'flex' :  'hidden'
+    
+    console.log(isEmpty)
+    const classTitle = purchasedProducts.length !== 0 ? 'hidden' : 'flex'
+    console.log(classTitle)
     return(
         <>
-      
-        <div className="display-content-info">
-    
-            <div className="table">
+        
+
+
+        <div className={`display-content-info section-info`}>
+
+            <h1 className={`text-center font-bold text-sm text-[#333333] ${classTitle} mt-3`}>
+                Aun no hay compras realizadas
+            </h1>
+
+            <div className={`table ${isEmpty}`}>
               <div className="table-title flex">
                 <div className="header">Producto</div>
                 <div className="header">Precio</div>
@@ -26,6 +30,8 @@ function Table(){
                 <div className="header">Cantidad</div>
               </div>
               <TableItems items={purchasedProducts}></TableItems>
+                
+              
 
             </div>
 

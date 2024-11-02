@@ -7,7 +7,7 @@ function  SliderInfo(){
 
     <div className="caja absolute bottom-10 left-0 w-full z-60  flex items-center  sm:items-end flex-col px-6 sm:flex-row sm:justify-between">
         <div className="box-txt w-96 text-start">
-            <h1 className='font-bold text-red-500 text-2xl sm:text-4xl my-3'>Esto es una caja tio</h1>
+            <h1 className='font-bold text-white text-2xl sm:text-4xl my-3'>Realme T300 Cancelación Ruido 30db Audio Espacial 360° Orange</h1>
             <p className="text-text text-wrap mb-3 text-sm sm:text-lg">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Pariatur veniam, illum architecto, ullam, nesciunt expedita quis eaque quibusdam eligendi cum harum nobis ad nostrum distinctio dolore laborum molestias vitae quo?
             </p>

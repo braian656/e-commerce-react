@@ -7,7 +7,7 @@ import { contextProducts } from "../context/context"
 
 
 
-function DashboardUser({setSliderActive,setUserLog, actualUser, setActualUser}){
+function DashboardUser({setSliderActive,setUserLog, actualUser, addUsers,setActualUser}){
     const {picUser} = useContext(contextProducts)
     const [sectionPurchaseHistory, setSectionPurchaseHistory] = useState(false)
     // const [seeSectionUser, setSeeSeccionUser] = useState(true)
@@ -32,7 +32,6 @@ function DashboardUser({setSliderActive,setUserLog, actualUser, setActualUser}){
     function getPurchaseHistory(){
         console.log('Mostrare todas las compras realizadas')
         setSectionPurchaseHistory(true)
-        console.log(purchasedProducts)
     }
     function getSectionUser(){
       console.log('mostrar seccion de usuario')
@@ -108,14 +107,17 @@ function DashboardUser({setSliderActive,setUserLog, actualUser, setActualUser}){
             <h1 className="name-user">
             {actualUser.name + ' ' + actualUser.surname}
             </h1>
+            <div className="cerrar-session">
+
+            </div>
          </div>
           <div className="more-inf">
             <h2 className="mail">
               Correo: {actualUser.email}
             </h2>
-            <h2 className="num">
-              00000000
-            </h2>
+            {/* <h2 className="num">
+              029491094
+            </h2> */}
           </div>
         </div>
         <div className="content-info-user mt-3">
@@ -150,7 +152,7 @@ function DashboardUser({setSliderActive,setUserLog, actualUser, setActualUser}){
               
           </aside>
           <div className="show-content display-content-info">
-            {sectionPurchaseHistory ? <Table></Table> : <InfoUser actualUser={actualUser}></InfoUser>}
+            {sectionPurchaseHistory ? <Table></Table> : <InfoUser actualUser={actualUser} addUsers={addUsers} setActualUser={setActualUser}></InfoUser>}
             
           </div>
         </div>

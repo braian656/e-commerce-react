@@ -20,7 +20,6 @@ import ContainerCardHome from './ContainerCardHome';
 import '../App.css'
 import '../output.css'
 import Pagination  from '../pagination-btns/PaginationBtns';
-import SelectCategory from '../select-category/SelectCategory';
 
 
 
@@ -49,46 +48,8 @@ GitHub
   const [users , setUsers] = useState([])
   const [actualUser , setActualUser] = useState(null)
   const [userLog, setUserLog] = useState(false)
-  // useEffect(()=>{
-  //   if(selectingPrice !== null){
-  //     setTotalPrice((prevPrice)=>[...prevPrice, selectingPrice])
-  //   }
-  // }, [selectingPrice]) 
-  // useEffect(() => {
-  //   if (selectingPrice !== null && !totalPrice.includes(selectingPrice)) {
-  //     setTotalPrice((prevPrice) => [...prevPrice, selectingPrice]);
-  //   }
-  // }, [selectingPrice, totalPrice]); // Añadimos totalPrice como dependencia
-  
 
-// Funcion del carrito
-
-
-
-  
-
-  // const ulRef = useRef(null)
-  // const [hasChildren, setHasChildren] = useState(false)
-
-
-  // useEffect(()=>{
-
-  //   if(ulRef.current && ulRef.current.children.length > 1){
-  //     setHasChildren(true)
-  //   }else{
-  //     setHasChildren(false)
-  //   } 
-  //   // setHasChildren(ulRef.current && ulRef.current.children.length > 1);
-  // },[])
-
-  // const verifyChildrenUl = hasChildren ? 'hidden' : 'block';
-  // const showTotal = !hasChildren ? 'hidden' : 'flex';
   const [list, setList] = useState([])
-
-  // const getWishList = (wishlistItems)=>{
-  //   setList(wishlistItems)
-  // }
-
 
   const wishItems = (_id, _image, _product, _description, _price)=>{
     const whishProduct = {
@@ -114,11 +75,12 @@ GitHub
     <>
 
 <ProductsContext>
-    <Header 
-    actualUser={actualUser} 
-    setActualUser={setActualUser}
-    setUserLog={setUserLog}>
-    </Header>
+    
+      <Header 
+      actualUser={actualUser} 
+      setActualUser={setActualUser}
+      setUserLog={setUserLog}>
+      </Header>
     <main className='bg-body'>   
 
         <Slider 
@@ -144,7 +106,7 @@ GitHub
           path='/' 
           element={
           <SectionProducts 
-          setSliderActive={setSliderActive}>
+            setSliderActive={setSliderActive}>
           </SectionProducts>
           }
           >
@@ -172,6 +134,7 @@ GitHub
           setUserLog={setUserLog} 
           actualUser={actualUser} 
           setActualUser={setActualUser}
+          addUsers={setUsers}
           ></DashboardUser>
 
           :        
@@ -212,6 +175,7 @@ GitHub
         
     </main>
 
+    
    
     </ProductsContext>
     <Footer></Footer>

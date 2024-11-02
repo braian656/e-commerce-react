@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 
 function InputRegistro({id ,name, type, text,value, onChange, err, setHaveErrs, haveErrs,textPassword}){
-    console.log(err)
     const [actualErr, setActualErr] = useState('');
     const [activeMsj, setActiveMsj] = useState(false)
     function handleErrors() {

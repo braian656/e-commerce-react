@@ -41,7 +41,7 @@ function Slider ({setSliderActive, sliderActive})  {
 
                 <img   
                 className='img-slider relative object-cover'
-                src="https://i.pinimg.com/enabled/564x/d2/5b/17/d25b178d8d6c3d1a8e93dcb47623899c.jpg" 
+                src="./images/img-product-2.jpg" 
                 alt="Imagen Producto 1" />
 
                 <SliderInfo></SliderInfo>

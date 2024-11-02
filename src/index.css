@@ -1,73 +1,4 @@
 
-/* :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
-
 .img-slider{
   /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); */
 }
@@ -76,8 +7,9 @@ button:focus-visible {
 .boxs-info > div{
   background: rgba(255, 255, 255, 0.1); 
 }
+/* menu hamburguesa */
 .menu-sm{
-  position: absolute;
+  position: fixed;
   top: 60px;
   left: 0;
   height: 500px;
@@ -126,10 +58,11 @@ sm:items-center sm:justify-center z-40'> */
 .container-category{
   margin: 1.25rem 0;
   padding: 0 20px;
+  border-radius: 4px;
 }
 .container-category .inner-category{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: end;
 }
 .underline{
@@ -161,15 +94,15 @@ sm:items-center sm:justify-center z-40'> */
   width: 80%;
   height: 400px;
   border-radius: 4px;
-  border: 4px solid #ef4444;
+ 
+
   display: grid;
   place-content: center;
 }
 .content-error h1{
-  color: #ef4444;
+  color: #e4bc2c;
   font-size: clamp(24px, 5vw, 38px);
   font-weight: bold;
-  text-decoration: underline;
   text-align: center;
 }
 
@@ -195,7 +128,7 @@ sm:items-center sm:justify-center z-40'> */
   
 }
 .content-user .name-user{
-  font-size: clamp(22px , 50vw, 42px);
+  font-size: clamp(22px , 5vw, 42px);
 }
 .content-user .image{
   display: flex;
@@ -220,6 +153,7 @@ sm:items-center sm:justify-center z-40'> */
   margin: 5px 0;
   font-size: 1rem;
   font-weight: semibold;
+ 
 }
 
 .content-info-user{
@@ -284,6 +218,7 @@ sm:items-center sm:justify-center z-40'> */
   width: 80%;
   /* height: 60vh; */
   margin: 0 5%;
+  height:628px;
 }
 
 @media (width < 520px){
@@ -357,4 +292,112 @@ sm:items-center sm:justify-center z-40'> */
 /* nav nameuser component  */
 .user{
   background-color: #333;
+}
+
+.modal-info{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background-color: #333;
+  width: 60%;
+  height: 420px;
+  transform: translate(-50%, -50%);
+  padding: 1rem;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 60;
+}
+
+.modal-info .content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.modal-info .close-modal{
+  position: absolute;
+  right: 10px;
+  top: -50px;
+  cursor: pointer;
+}
+.modal-info .content-img{
+  margin-bottom: 1.5rem;
+}
+.modal-info .content-info{
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+.modal-info .close-modal:hover{
+  transition: 0.3s ease-in;
+  background-color: #2b2c30;
+  color: #ddd;
+}
+.bg-opacity{
+  transition: 0.3s ease;
+  position: relative;
+}
+.bg-opacity::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.733); /* Oscurecimiento */
+
+}
+/* .bg-opacity > div{
+  opacity: 1;
+  transition: opacity 0.3s ease;
+} */
+
+/* boton para ver el modal */
+.btn-menu{
+  background: #333;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  transition: 0.3s ease-in-out;
+}
+
+.btn-menu:hover{
+  background-color: #e4bc2c;
+}
+
+/* caja donde se muestran los productos en el cart */
+.cart{
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 480px;
+  background-color: #333;
+  padding: 1rem;
+  min-height: auto;
+  transform: translateX(100%);
+  z-index: -1;
+  opacity: 0;
+
+}
+
+.active-cart{
+  width: 480px;
+  position: fixed;
+  top: 60px;
+  right: 0;
+  background-color: #333;
+  transform: translateX(0%);
+  opacity: 1;
+  z-index: 100;
+  transition: 500ms ease-in-out;
+
+}
+
+
+/* ease-[cubic-bezier(0.4, 0, 0.2, 1)] */
+
+.card-wishlist{
 }

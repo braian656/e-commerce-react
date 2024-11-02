@@ -6,6 +6,7 @@ import ModalProductsUser from '../nav-component/ModalProductsUser';
 import UserNav from '../nav-component/UserNav';
 import EmptyCart from '../errors-component/EmpyCart'
 import c from 'croppie';
+import '../index.css'
 
 
 function Header({ actualUser,setUserLog, setActualUser}){
@@ -66,9 +67,9 @@ function Header({ actualUser,setUserLog, setActualUser}){
       }
       
     }
-    const modalShow = modalProduct ? 'block translate-y-0  transition duration-500 ease-[cubic-bezier(0.4, 0, 0.2, 1)] opacity-100 z-40' : 'hidden -translate-y-full -z-10 opacity-0'
+    const modalShow = modalProduct ? 'active-cart' : 'cart'
     // const handleClassMenu = menuOpen ? '-translate-y-full z-10' : 'translate-y-0 z-50'
-    const handleClassMenu = menuOpen ? 'translate-y-0 z-50' : '-translate-y-full z-10'
+    const handleClassMenu = menuOpen ? 'translate-y-0 z-50' : '-translate-y-full -z-10'
 
     const hanndleClassTotal =  totalPrice.length === 0 ? 'hidden' : 'flex'
   
@@ -76,11 +77,13 @@ function Header({ actualUser,setUserLog, setActualUser}){
     const buttonSeeModal = useRef(null)
 
     useEffect(()=>{
-      const handleClick = (e)=>{
-        if(e.target !== boxUserProduct.current && e.target !== buttonSeeModal.current){
+
+
+      const handleClick = (e)=>{    
+        if(!boxUserProduct.current.contains(e.target) && !buttonSeeModal.current.contains(e.target)){
           setModalProduct(false)
-        }else{
-          seeModalProduct(true)
+        } else{
+          setModalProduct(true)
         }
       }
 
@@ -93,10 +96,15 @@ function Header({ actualUser,setUserLog, setActualUser}){
 
 
     return(
-      <header className='bg-button p-2 sticky z-50 top-0'>
+      <header className='bg-button p-2 sticky z-50 top-0 overflow-hidden'>
 
         <nav className='flex justify-between items-center '>
-          <h2 className="logo text-red-500 font-extrabold z-50">E-comm</h2>
+          <div className="logo w-10 h-10 z-50">
+          <Link to="/">
+            <img className='w-full h-full ' src="../images/ecommerce-price-price-tag-svgrepo-com.svg" alt="" />
+          </Link>
+            
+          </div>
           
           <ul className={`menu-sm ${handleClassMenu} bg-button sm:relative sm:top-0 sm:translate-y-0 sm:w-auto sm:h-auto sm:flex sm:flex-row sm:items-center sm:justify-center z-40`}>
             
@@ -117,24 +125,20 @@ function Header({ actualUser,setUserLog, setActualUser}){
             </li>
             
           </ul>  
-          <button 
-          className='z-50 sm:hidden'
-          onClick={openMenu}>      
-            <ChevronDown size={32} color="rgb(228 188 44)" />
-          </button>
-          <div className="btns-cart flex">
 
-            <button 
-            ref={buttonSeeModal}
-            className='bg-button2 z-50 px-1 py-2 ease-out duration-700 border-2 border-transparent hover:border-solid hover:border-button2 hover:bg-button hover:scale-105 hover:text-button2'
-            onClick={seeModalProduct}>
-              <span className='text-red-500 px-1 font-semibold rounded-md'>{productCart.length}</span>
-              <i className="fa-solid fa-cart-shopping"></i>
-            </button>
+
+          <button 
+            className='btn-menu z-50 sm:hidden'
+            onClick={openMenu}>      
+            <ChevronDown size={32} color="#f2f2f2" />
+          </button>
+
+
+          <div className="btns-cart flex z-50">
 
 
             {actualUser !== null 
-          
+            
             ? 
 
             <UserNav 
@@ -145,41 +149,41 @@ function Header({ actualUser,setUserLog, setActualUser}){
 
             : 
             null}
+
+            <button 
+            ref={buttonSeeModal}
+            className='btn-cart z-50 bg-button2 px-1 py-2 ease-out duration-700 border-2
+            border-transparent hover:border-solid hover:border-button2 
+            hover:bg-button hover:scale-105 hover:text-button2'
+            onClick={seeModalProduct}>
+
+              <span className='text-red-500 px-1 font-semibold rounded-md -z-10'>
+                {productCart.length}
+              </span>
+              
+              <i className="fa-solid fa-cart-shopping -z-10"></i>
+
+            </button>
+
           </div>
         </nav>
-        {/* {actualUser !== null 
-        
-        ? 
 
-        <UserNav 
-        setUserLog={setUserLog} 
-        actualUser={actualUser} 
-        setActualUser={setActualUser}
-        ></UserNav>
-
-        : null} */}
-  
         <div 
-          ref={boxUserProduct}
-          className={
-          `${modalShow} 
-          w-full 
-          absolute
-          left-0 
-          top-[3.7rem] 
-          user-product 
-          bg-modal 
-          p-2 
-          min-h-auto`}>
-          <ul>
-  
-            <h1 className={`text-center font-semibold text-2xl p-3 text-text`}>
-              {Object.values(productCart).length == 0 ? <EmptyCart></EmptyCart> : ''}
-            </h1>
-            {showShoppingCart}
-  
+        className={`${modalShow}`}>
           
-            
+          <ul 
+          className='heirate-mich'
+          ref={boxUserProduct}>
+            {
+              Object.values(productCart).length == 0
+              ? 
+              <EmptyCart 
+                text="Looks like you haven't added anything to your cart yet.">
+              </EmptyCart> 
+              : 
+              ''
+              }
+            {showShoppingCart}            
           </ul>
           
           <div className={`${hanndleClassTotal} total_price justify-around items-center`}>

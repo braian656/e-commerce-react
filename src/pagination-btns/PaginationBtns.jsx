@@ -4,8 +4,14 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { contextProducts } from "../context/context"
 
 function Pagination ({sliderActive}){
-    const {totalProducts, productsPerPage,currentPage,setCurrentPage}= useContext(contextProducts)
-
+    const {
+      totalProducts, 
+      productsPerPage,
+      currentPage,
+      setCurrentPage, 
+      categories,
+      userSelectedCategory
+    }  = useContext(contextProducts)
     const pageNumber = [];
 
 
@@ -35,31 +41,32 @@ function Pagination ({sliderActive}){
 
     }
 
-    const handleClassPagination = !sliderActive ? 'hidden' : 'flex'
-
+    const handleClass = !sliderActive || userSelectedCategory !== 'All' ? 'hidden' : 'flex'
     return (
 
+    
+      <div  className={`btns-pagination  p-3 ${handleClass} justify-center items-center`}>
 
-        <div  className={`btns-pagination  p-3 ${handleClassPagination} justify-center items-center`}>
-          <button 
-          disabled={currentPage <= 1 ? true : false}
-          onClick={previousPage} 
-          className={`mr-1 pointer rounded-md ${currentPage == 1 ? 'button-disabled' : 'bg-buttonPagination'}`}>
-            <ChevronLeft size={48} color="#ffff" strokeWidth={1.5}/>
-          </button>
+      <button 
+      disabled={currentPage <= 1 ? true : false}
+      onClick={previousPage} 
+      className={`mr-1 pointer rounded-md ${currentPage == 1 ? 'button-disabled' : 'bg-buttonPagination'}`}>
+        <ChevronLeft size={48} color="#ffff" strokeWidth={1.5}/>
+      </button>
 
-          <span>
-            {currentPage}
-          </span>
-          <button  
+      <span>
+        {currentPage}
+      </span>
+      <button  
 
 
-          disabled={currentPage >= pageNumber.length-1 ? true : false}
-          onClick={nextPage} className={`ml-1 pointer rounded-md ${currentPage >= pageNumber.length-1 ? 'button-disabled' : 'bg-buttonPagination'}`}>
+      disabled={currentPage >= pageNumber.length-1 ? true : false}
+      onClick={nextPage} className={`ml-1 pointer rounded-md ${currentPage >= pageNumber.length-1 ? 'button-disabled' : 'bg-buttonPagination'}`}>
 
-            <ChevronRight size={48} color="#ffff" strokeWidth={1.5}/>
-          </button>
-        </div>
+        <ChevronRight size={48} color="#ffff" strokeWidth={1.5}/>
+      </button>
+    </div> 
+        
 
     )
 }

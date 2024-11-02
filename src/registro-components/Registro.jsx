@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { Routes, Route} from "react-router-dom"
 import { Link } from 'react-router-dom';
 
+
 import InputRegistro from "./InputRegistro"
 
 import React from "react";
@@ -10,12 +11,6 @@ function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, use
     const [haveErr, setHaveErr] = useState(false)
     const [error, setError] = useState([]);
     const [isValid, setIsValid] = useState(true)
-
-    // const [formValidate, setFormValidate] = useState({
-    //         isValid : true,
-    //         haveErr : false,
-    //         error : []
-    // })
 // el componete siempre necesita un estado inicial:
     // mover la logica de comparacion a otro componente
     const [dataUser, setDataUser] = useState(
@@ -100,23 +95,11 @@ function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, use
             setError(errors)
             setHaveErr(true)
 
-
-            // setFormValidate({
-            //     isValid : false,
-            //     haveErr : true,
-            //     error : errors
-            // })
-
             return
         }
 
             setIsValid(true)
             setError([])
-            // setFormValidate({
-            //     isValid : true,
-            //     haveErr : false,
-            //     error : [],
-            // })
             return true
 
         
@@ -125,11 +108,9 @@ function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, use
     function handleSubmit(evt){
     // previene el renderizado del form
     evt.preventDefault()
-    
-    console.log('Por que se envian los datos?')
-    
-    
 
+   
+    
     if(validate()){
         console.log('Bienvenue, Welcolme, wilkommen', dataUser)
         // guardar los datos en un arr, por ahora, pero luego
@@ -165,6 +146,7 @@ function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, use
             };
             setDataUser(newValues);        
     }
+    
     useEffect(()=>{
         
         
@@ -260,7 +242,7 @@ function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, use
                 type="submit"
                 className="mt-3 text-button2 font-bold  bg-button p-3 w-1/2 ease-out duration-700 hover:bg-white hover:text-button">
                     Registrarse
-                </button>
+            </button>
             </div>
             </form>
         </div>
