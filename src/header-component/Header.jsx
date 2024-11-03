@@ -101,7 +101,7 @@ function Header({ actualUser,setUserLog, setActualUser}){
         <nav className='flex justify-between items-center '>
           <div className="logo w-10 h-10 z-50">
           <Link to="/">
-            <img className='w-full h-full ' src="../images/ecommerce-price-price-tag-svgrepo-com.svg" alt="" />
+            <img className='w-full h-full ' src="../images/ecommerce.svg" alt="" />
           </Link>
             
           </div>

@@ -1,9 +1,4 @@
 
-.img-slider{
-  /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); */
-}
-
-
 .boxs-info > div{
   background: rgba(255, 255, 255, 0.1); 
 }
@@ -211,9 +206,7 @@ sm:items-center sm:justify-center z-40'> */
   margin: 0 2px;
   font-size:14px;
 }
-.show-content{
-  
-}
+
 .display-content-info{
   width: 80%;
   /* height: 60vh; */
@@ -274,10 +267,7 @@ sm:items-center sm:justify-center z-40'> */
 }
 
 /* COmponente Pic Perfil */
-.pic-content{
-  
 
-}
 .actual-pic{
   width: 80px;
   height: 80px;
@@ -399,5 +389,3 @@ sm:items-center sm:justify-center z-40'> */
 
 /* ease-[cubic-bezier(0.4, 0, 0.2, 1)] */
 
-.card-wishlist{
-}

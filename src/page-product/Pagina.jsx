@@ -57,7 +57,7 @@ function Pagina({actualUser,onClick, setSliderActive}){
                 setMessage('Inicia sesion para realizar la compra.');
                 setTxtButton('IR A MI CUENTA');
                 setShowMessageErr(true);
-                setImgError('/images/sad-circle-svgrepo-com.svg')
+                setImgError('/images/sad-circle.svg')
                 setTitleModal('Accede para Continuar')
     
                 return;
@@ -86,7 +86,7 @@ function Pagina({actualUser,onClick, setSliderActive}){
                     setMessage(actualProduct.product);
                     setTxtButton('Aceptar');
                     setShowMessageErr(true);
-                    setImgError('/images/check-square-svgrepo-com.svg')
+                    setImgError('/images/check.svg')
                     setTitleModal('¡Compra realizada con éxito!')
     
                     console.log(preferenceUser)
@@ -97,7 +97,7 @@ function Pagina({actualUser,onClick, setSliderActive}){
                     setMessage('Rellene los campos necesarios para realizar su compra');
                     setTxtButton('CERRAR');
                     setShowMessageErr(true);
-                    setImgError('/images/ghost-svgrepo-com.svg')
+                    setImgError('/images/ghost.svg')
                     setTitleModal('Informacion requerida')
     
                 }
@@ -106,7 +106,7 @@ function Pagina({actualUser,onClick, setSliderActive}){
                 setMessage('Rellene los campos necesarios para realizar su compra');
                 setTxtButton('CERRAR');
                 setShowMessageErr(true);
-                setImgError('/images/ghost-svgrepo-com.svg')
+                setImgError('/images/ghost.svg')
                 setTitleModal('Informacion requerida')
     
     
@@ -192,7 +192,7 @@ function Pagina({actualUser,onClick, setSliderActive}){
         txtButton={txtButton}
         actualUser = {actualUser}
         colorBtn='bg-green-500'
-        image="/images/hearts-svgrepo-com.svg"
+        image="/images/hearts.svg"
         title="Producto agregado"
         >
         </Error>

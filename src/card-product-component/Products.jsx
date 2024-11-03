@@ -84,7 +84,7 @@ function Products(){
       txtButton="ACEPTAR"
       colorBtn="bg-button2"
       title="Producto añadido recientemente."
-      image="./images/close-square-svgrepo-com.svg">
+      image="./images/close.svg">
       </Error>
       :
       null

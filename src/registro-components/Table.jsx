@@ -29,7 +29,10 @@ function Table(){
                 <div className="header">Color</div>
                 <div className="header">Cantidad</div>
               </div>
-              <TableItems items={purchasedProducts}></TableItems>
+              
+              <TableItems 
+              items={purchasedProducts}>
+              </TableItems>
                 
               
 

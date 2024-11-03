@@ -106,12 +106,14 @@ function InfoUser({actualUser,addUsers, setActualUser}){
             messageModal="DESEA REALIZAR CAMBIOS??"
             txtButton="ACEPTAR"
             colorBtn="bg-red-500"
-            image="./images/danger-triangle-svgrepo-com.svg"
+            image="./images/danger.svg"
             title="Realizar cambios"
             handleModal={handleClassModal}
             ></Error>
         
-            <PicPerfil picUser={picUser}></PicPerfil>
+            <PicPerfil 
+            picUser={picUser}>
+            </PicPerfil>
 
 
             <InputRegistro 
@@ -162,14 +164,6 @@ function InfoUser({actualUser,addUsers, setActualUser}){
             hoverButton="hover:bg-white hover:border-button2 hover:text-button2"
             ></ButtonPag>
         </div>
-       
-        {/* <InputRegistro 
-        id="nombre" 
-        name="nombre" 
-        type="text"
-        value="Nombre DEl usuario"
-        text="NOMBRE DEL USUARIO">
-        </InputRegistro> */}
 
     </>
         
