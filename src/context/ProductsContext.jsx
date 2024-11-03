@@ -146,7 +146,6 @@ const ProductsContext = ({children})=>{
           setPurchasedProducts,
           picUser,
           setPicUser,
-          textErr,
           setTextErr
         }}>
 
