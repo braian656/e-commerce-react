@@ -112,7 +112,7 @@ const ProductsContext = ({children})=>{
     }, [selectingPrice, totalPrice]); 
     // Añadimos totalPrice como dependencia
     
-  
+  console.log('e???')
 
     return(
 
