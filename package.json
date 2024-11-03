@@ -6,14 +6,12 @@
   "homepage": "https://braian656.github.io/e-commerce-react",
 
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "dev": "vite --open --port 3000",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
-
-
+    "preview": "vite preview"
   },
   "dependencies": {
     "lucide-react": "^0.452.0",
