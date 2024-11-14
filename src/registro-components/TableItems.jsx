@@ -1,18 +1,27 @@
 function TableItems({items}){
+  console.log(items)
 
     const table = items.map((item, i)=>(
-        <div key={i} className="table-items flex">
-          <div className="item">{item.producto}</div>
-          <div className="item">item1</div>
-          <div className="item">{item.color}</div>
-          <div className="item">{item.cantidad}</div>        
+
+      <article key={i} className="prod">
+        <h2 className="product">{item.producto}</h2>
+
+        <div className="items">
+          <h2 className="sub-item">Precio: ${item.price}</h2>
+          <h2 className="sub-item">Unidades: {item.cantidad}</h2>
         </div>
+      </article>
+
+
       ))
 
     return(
         <>
+    
         
             {table}
+
+           
 
         </>
     )

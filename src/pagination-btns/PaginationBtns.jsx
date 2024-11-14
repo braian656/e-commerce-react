@@ -12,6 +12,8 @@ function Pagination ({sliderActive}){
       categories,
       userSelectedCategory
     }  = useContext(contextProducts)
+
+    
     const pageNumber = [];
 
 
@@ -40,8 +42,13 @@ function Pagination ({sliderActive}){
 
 
     }
+    // const handleClass = sliderActive || userSelectedCategory === '' ? 'flex' : 'hidden'
+    console.log('El slider esta activo?',sliderActive)
+    console.log('Categoria del usuario', userSelectedCategory)
+    console.log(userSelectedCategory.includes('All'))
+    const handleClass = !sliderActive || !userSelectedCategory.includes('All') ? 'hidden' : 'flex'
+    
 
-    const handleClass = !sliderActive || userSelectedCategory !== 'All' ? 'hidden' : 'flex'
     return (
 
     
@@ -51,19 +58,26 @@ function Pagination ({sliderActive}){
       disabled={currentPage <= 1 ? true : false}
       onClick={previousPage} 
       className={`mr-1 pointer rounded-md ${currentPage == 1 ? 'button-disabled' : 'bg-buttonPagination'}`}>
-        <ChevronLeft size={48} color="#ffff" strokeWidth={1.5}/>
+        <ChevronLeft 
+        size={48} 
+        color="#ffff" 
+        strokeWidth={1.5}/>
       </button>
 
       <span>
         {currentPage}
       </span>
-      <button  
 
-
+      <button 
       disabled={currentPage >= pageNumber.length-1 ? true : false}
-      onClick={nextPage} className={`ml-1 pointer rounded-md ${currentPage >= pageNumber.length-1 ? 'button-disabled' : 'bg-buttonPagination'}`}>
+      onClick={nextPage} 
+      className={`ml-1 pointer rounded-md ${currentPage >= pageNumber.length-1 ? 'button-disabled' : 'bg-buttonPagination'}`}>
 
-        <ChevronRight size={48} color="#ffff" strokeWidth={1.5}/>
+        <ChevronRight 
+        size={48} 
+        color="#ffff" 
+        strokeWidth={1.5}/>
+
       </button>
     </div> 
         

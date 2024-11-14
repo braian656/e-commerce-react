@@ -11,7 +11,7 @@ function ContainerCardHome({setSliderActive, sliderActive}){
         <section className={`${handleClass} bg-body container-card-home p-3`}>
             
             
-          <div className='flex justify-center items-center' >
+          <div className='wrapper-card' >
           <CardHome
             title="MEDIOS DE PAGOS"
             textP="Paga de forma segura"

@@ -16,7 +16,9 @@ function Error ({visible, messageModal, txtButton,actualUser,colorBtn, image,tit
     return (
         <article className={`${visibility} modal-info`}>    
             <div className="content relative w-full">
-                <span onClick={handleModal} className="close-modal bg-button2 p-3 pointer">
+                <span 
+                onClick={handleModal} 
+                className="close-modal bg-button2 p-3 pointer">
                     <X />
                 </span>
                 <div className="content-img">

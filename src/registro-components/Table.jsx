@@ -7,37 +7,27 @@ import { useEffect, useContext, useState } from "react"
 function Table(){
     const {purchasedProducts} = useContext(contextProducts)
     const isEmpty = purchasedProducts.length !== 0 ? 'flex' :  'hidden'
-    
-    console.log(isEmpty)
     const classTitle = purchasedProducts.length !== 0 ? 'hidden' : 'flex'
-    console.log(classTitle)
+
+
+    console.log(purchasedProducts)
     return(
         <>
         
+    
 
+        <div className="section-info p-5"> 
 
-        <div className={`display-content-info section-info`}>
-
-            <h1 className={`text-center font-bold text-sm text-[#333333] ${classTitle} mt-3`}>
-                Aun no hay compras realizadas
+            <h1 className={`ml-[24px] text-center text-2xl font-bold text-gray-500 ${classTitle} mt-3`}>
+                AUN NO HAY COMPRAS REALIZADAS
             </h1>
-
-            <div className={`table ${isEmpty}`}>
-              <div className="table-title flex">
-                <div className="header">Producto</div>
-                <div className="header">Precio</div>
-                <div className="header">Color</div>
-                <div className="header">Cantidad</div>
-              </div>
-              
+            <div className="content-products">
+  
               <TableItems 
-              items={purchasedProducts}>
+                items={purchasedProducts}>
               </TableItems>
-                
-              
 
             </div>
-
         </div>
         </>
     )

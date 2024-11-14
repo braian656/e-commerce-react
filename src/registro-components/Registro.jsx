@@ -1,16 +1,22 @@
 import { useContext, useEffect, useState } from "react"
 import { Routes, Route} from "react-router-dom"
 import { Link } from 'react-router-dom';
-
+import { useSelector, useDispatch } from "react-redux";
+import { addUser } from "../store/features/register";
 
 import InputRegistro from "./InputRegistro"
 
 import React from "react";
 
-function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, users, setActualUser}){
+function Registro({setSliderActive,setUserLog,sliderState, slider, setActualUser}){
     const [haveErr, setHaveErr] = useState(false)
     const [error, setError] = useState([]);
     const [isValid, setIsValid] = useState(true)
+
+    const dispatch = useDispatch()
+    const dataUsers = useSelector((state) => state.registerUser.users)
+    console.log('usuarios en el redux', dataUsers)
+
 // el componete siempre necesita un estado inicial:
     // mover la logica de comparacion a otro componente
     const [dataUser, setDataUser] = useState(
@@ -37,9 +43,7 @@ function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, use
 
     const verifyPassMatch = (pass)=>{
         const repeatPassword = dataUser.password_repeat
-
         return pass === repeatPassword
-
     }
 
     useEffect(()=>{
@@ -51,9 +55,10 @@ function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, use
         const errors = []
 
         const name = dataUser.name
-        const surname = dataUser.surname
         const email = dataUser.email
         const password = dataUser.password
+
+        console.log('valores en dataUser, validate()',dataUser)
         
         // Al menos un dígito.
         // Al menos una letra minúscula.
@@ -76,11 +81,13 @@ function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, use
         if(!verifyPassMatch(password)){
             errors.push({password_repeat: 'Las Contraseñas no coinciden'})
         }
-
-        if(users.length !== 0){
+        if(dataUsers.length !== 0){
+            console.log('Verifica si el elemento, no esta vacio', dataUser)
             console.log('No estoy Vacio')
+            console.log(dataUser.email, email)
 
-            const findDuplicated = users.find((user)=> user.email === email);
+            const findDuplicated = dataUsers.find((user)=> user.email === email);
+            console.log(findDuplicated)
 
             if(findDuplicated){
                 errors.push({email: 'Correo en uso'})
@@ -90,6 +97,8 @@ function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, use
         }else{
             console.log('Estoy Bien vacio')
         }
+
+
         if(errors.length > 0){
             setIsValid(false)
             setError(errors)
@@ -107,14 +116,14 @@ function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, use
 
     function handleSubmit(evt){
     // previene el renderizado del form
-    evt.preventDefault()
-
-   
-    
+    console.log(dataUser)
+    evt.preventDefault()    
     if(validate()){
         console.log('Bienvenue, Welcolme, wilkommen', dataUser)
         // guardar los datos en un arr, por ahora, pero luego
-        addUsers((prevItems) => [...prevItems,dataUser]); 
+        // addUsers((prevItems) => [...prevItems,dataUser]);
+        dispatch(addUser(dataUser))
+        // aca iria el state de redux
 
         setActualUser(dataUser)
         setUserLog(true)
@@ -158,16 +167,16 @@ function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, use
         <section className="bg-body flex justify-center items-center flex-col relative">
             
         <div className="center flex justify-center items-center w-full flex-col sm:flex-row">
-            <div className="sm:w-4/5 sm:h-[600px] flex justify-center items-center overflow-hidden">
-                
+            <div className="sm:w-4/5 h-[320px] sm:h-[720px] flex justify-center items-center overflow-hidden">
                 <img
-                    className="w-full h-full object-cover"
+                    className="rounded-lg sm:rounded-none shadow-lg sm:shadow-none sm:object-cover h-full w-full"
+                    // src="./images/bg-signin.jpg"
                     src="https://img.freepik.com/foto-gratis/composicion-vista-frontal-cyber-monday_23-2149055978.jpg?t=st=1727474471~exp=1727478071~hmac=09898073361987f45e1a6a40b8ef82099ed1a4641a5b956d3ba47c60fdb542c2&w=740"
                     alt="Compras"
                 />
             </div>
-            {/* <h1 className="absolute top-0 font-bold text-3xl text-button">Registro de usuario</h1> */}
-            <form onSubmit={handleSubmit} className="bg-button2 w-full sm:w-1/2 h-[600px] p-5">
+
+            <form onSubmit={handleSubmit} className="bg-[#f2f2f2] w-full sm:w-1/2 h-[620px] p-5">
                 <InputRegistro 
                 id="name"
                 name="name" 
@@ -240,7 +249,7 @@ function Registro({setSliderActive,setUserLog,sliderState, slider, addUsers, use
                 </span>
             <button 
                 type="submit"
-                className="mt-3 text-button2 font-bold  bg-button p-3 w-1/2 ease-out duration-700 hover:bg-white hover:text-button">
+                className="mt-3 rounded-lg text-[#f2f2f2] font-semibold  bg-button py-2 px-3 w-1/2 ease-out duration-700 hover:bg-button2  shadow-md hover:shadow-lg transition-shadow ...">
                     Registrarse
             </button>
             </div>

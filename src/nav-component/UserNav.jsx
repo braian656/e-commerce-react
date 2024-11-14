@@ -6,7 +6,7 @@ function UserNav({actualUser, setUserLog,setActualUser}){
    
     return(
 
-        <div className="user p-1 mx-2 flex justify-center items-center z-90 transition ease-in-out">
+        <div className="user py-1 px-2 mx-2 flex rounded-lg justify-center items-center z-90 transition ease-in-out">
             <h2 className="hidden sm:flex text-white text-center font-normal">
                 {actualUser.name + ' ' + actualUser.surname}
             </h2>

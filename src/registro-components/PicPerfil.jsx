@@ -5,16 +5,13 @@ function PicPerfil({picUser}){
     
     return(
         <>
-        <div className="pic-content flex justify-center items-center flex-col">
+        <div className="pic-content">
             <div className="actual-pic">
                 <img src={picUser} alt="" />
             </div>
-            <ButtonPag 
-            text="CAMBIAR FOTO DE PERFIL"
-            clr="bg-button" 
-            clrText="white" 
-            width="200px">
-            </ButtonPag>
+            <button className="profile-button">
+                CAMBIAR FOTO
+            </button>
         </div>
         </>
     )

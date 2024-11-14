@@ -23,7 +23,7 @@ function Slider ({setSliderActive, sliderActive})  {
     return (
         <>
         <div className={`${hanndleClass}`}>
-        <Swiper
+        <Swiper 
             spaceBetween={50}
             centeredSlides={true}
             autoplay={{
@@ -35,48 +35,20 @@ function Slider ({setSliderActive, sliderActive})  {
             }}
     
             modules={[Autoplay, Pagination, Navigation]}
-            className="mySwiper">
+            className="mySwiper"
+            id="swiper"
+            >
 
-            <SwiperSlide>
-
-                <img   
-                className='img-slider relative object-cover'
-                src="./images/img-product-2.jpg" 
-                alt="Imagen Producto 1" />
-
+            <SwiperSlide
+            id='swiper-slide'>
                 <SliderInfo></SliderInfo>
-
             </SwiperSlide>
-
-            {/* <SwiperSlide>
-
-                <img 
-                className='img-slider relative object-cover z-10'
-                src="./images/img-product-2.jpg"
-                alt="Imagen Producto 2"
-                />
-
-                <SliderInfo></SliderInfo>
-                
-            </SwiperSlide>
-
-            <SwiperSlide>
-
-                <img 
-                className='img-slider relative object-cover z-10'
-                src="./images/img-product-3.jpg" 
-                alt="Imagen Producto 3" />
-
-                <SliderInfo></SliderInfo>
-
-            </SwiperSlide> */}
-
         </Swiper>
     
         </div>
         
         </>
-      );
+    );
 };
 
 

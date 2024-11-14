@@ -20,7 +20,8 @@ function sectionProducts({setSliderActive}){
         items-center 
         flex-wrap'> 
         
-        <Products></Products>
+        <Products>
+        </Products>
     </section>
 
     )

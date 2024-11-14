@@ -1,27 +1,36 @@
 import { useContext, useEffect, useState } from "react"
 import InputRegistro from "./InputRegistro"
 import { contextProducts } from "../context/context"
+import { useDispatch , useSelector} from "react-redux"
+import ButtonPag from "../buttons-component/ButtonPag"
 
-function SignIn({setOpenPagProduct,setSliderActive,sliderActive,users}){
+import { useNavigate } from "react-router-dom"
+
+
+function SignIn({setOpenPagProduct,setSliderActive,sliderActive}){
 
     console.log('Por que mierda no funcionas hijo de puta')
-    const [verifyAccount,setVerifyAccount] = useState({ email : '', password : '',}) 
+    const dataUsers = useSelector((state) => state.registerUser.users)
 
+    const [verifyAccount,setVerifyAccount] = useState(
+        { 
+            email : '',
+            password : '',
+        }
+    ) 
+    const navigate = useNavigate()
     
 
     const submitForm = (e)=>{
         e.preventDefault()
 
     
-        for(const [key, value] of Object.entries(users)){
-            if(value.email === verifyAccount.email){
-                console.log('EL correo es correcto')
+        for(const [key, value] of Object.entries(dataUsers)){
 
-                if(value.password === verifyAccount.password){
-                    console.log('La contraseña es Correcta')
-                    // El usuario debe entrar y poder ver su cuenta compras y toda esa verga
-                    // si la contraseña y el correo es correcto,mostrar en el navbar el nombre y una 'Foto'
-                }
+            if(value.email === verifyAccount.email && 
+                value.password === verifyAccount.password){
+                    
+                console.log('EL correo es correcto,La contraseña es Correcta')
 
             }else{
                 return
@@ -30,6 +39,10 @@ function SignIn({setOpenPagProduct,setSliderActive,sliderActive,users}){
 
         console.log(verifyAccount)
 
+    }
+
+    const signUp = ()=>{
+        navigate('')
     }
 
     const changeForm = (e)=>{
@@ -56,8 +69,8 @@ function SignIn({setOpenPagProduct,setSliderActive,sliderActive,users}){
     })
 
     return(
-        <section className="sig-in bg-hero-sigIn bg-cover bg-no-repeat bg-center flex justify-center items-center relative  w-full h-[600px]">
-            <form onSubmit={submitForm} className="w-full bg-button2 p-5 sm:w-3/5">
+        <section className="sign-in flex justify-center items-center relative w-full h-[600px]">
+            <form onSubmit={submitForm} className="form-signIn shadow-lg">
                     <h1 className="text-center font-bold text-3xl text-button">Ingresar</h1>
                         <InputRegistro 
                         id="email" 
@@ -75,14 +88,21 @@ function SignIn({setOpenPagProduct,setSliderActive,sliderActive,users}){
                         onChange={changeForm}>           
                         </InputRegistro>
                 <div className="btns flex justify-center items-center flex-col">
-                <span className="font-bold text-center pointer">
-                    AUN NO TENGO UNA CUENTA
-                </span>
-                <button 
-                type="submit"
-                className="mt-3 text-button2 font-bold  bg-button p-3 w-1/2 ease-out duration-700 hover:bg-white hover:text-button">
-                    Ingresar
-                </button>
+
+                    <span 
+                    className="text-signIn"
+                    onClick={signUp}>
+                        Aun no tienes una cuenta?
+                    </span>
+                    <ButtonPag 
+                        text="Ingresar" 
+                        type="submit"
+                        clr="bg-zinc-900"
+                        clrText="white"
+                        width="w-full"
+                        border="border border-solid border-white"
+                        hoverButton="hover:text-zinc-900 hover:bg-white border-zinc-900">         
+                    </ButtonPag>
                 </div>
                 </form>
         </section>

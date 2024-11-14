@@ -5,7 +5,9 @@ function ChoseColor ({clr1, clr2, clr3, onClick}){
     return (
 
         <div className="preference_box">
-            <h3 className="color text-white my-1.5 text-center">Color</h3>
+            <h3 className="color text-white my-1.5 text-center">
+                Color
+            </h3>
             <div className="flex p-1" 
             onClick={(e)=>onClick(e)}>
                 {

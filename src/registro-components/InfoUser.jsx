@@ -4,8 +4,16 @@ import PicPerfil from "./PicPerfil"
 import { contextProducts } from "../context/context"
 import ButtonPag from "../buttons-component/ButtonPag"
 import Error from "../errors-component/Error"
-function InfoUser({actualUser,addUsers, setActualUser}){
+
+
+import { useSelector, useDispatch } from "react-redux";
+import { addUser } from "../store/features/register"
+
+function InfoUser({actualUser, setActualUser}){
     const {picUser} = useContext(contextProducts)
+    const dispatch = useDispatch()
+
+
     const [actualValue , setActualValue] = useState(
         {
             name: actualUser.name,
@@ -20,13 +28,13 @@ function InfoUser({actualUser,addUsers, setActualUser}){
     const [updateUserData, setUpdateUserData] = useState(false)
     const [modalVisible , setModalVisible] = useState(false)
     const [message, setMessage] = useState('')
-    console.log(actualUser)
+    
     const nameLength=(name)=>(
         name.length > 3 
     )
 
     const verifyPasswords = (pass)=>{
-    return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(pass);
+        return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(pass);
     }
 
     const verifyPassMatch = (pass)=> pass === actualValue.password_repeat
@@ -38,8 +46,6 @@ function InfoUser({actualUser,addUsers, setActualUser}){
         
 
         const name = actualValue.name
-        const surname = actualValue.surname
-        const email = actualValue.email
         const password = actualValue.password
 
         if(!nameLength(name)){
@@ -67,17 +73,19 @@ function InfoUser({actualUser,addUsers, setActualUser}){
 
     const handleSubmit = (e)=>{
         e.preventDefault()
-       
+
 
         if(validate()){
-            addUsers((prevItems) => [...prevItems,actualValue]); 
+            dispatch(addUser(actualValue))
             setActualUser(actualValue)
-            // setMessage('')
-        }else{
-            return
         }
+        // else{
 
-       
+        //     return
+
+        // }
+
+
     }
     
     function handleChange(evt){
@@ -99,7 +107,7 @@ function InfoUser({actualUser,addUsers, setActualUser}){
     <>
 
 
-        <div className="section-info p-5 rounded-md">
+        <div className="section-info">
 
             <Error 
             visible={modalVisible} 
@@ -116,53 +124,56 @@ function InfoUser({actualUser,addUsers, setActualUser}){
             </PicPerfil>
 
 
-            <InputRegistro 
-            id="nombre" 
-            name="name" 
-            type="text"
-            value={actualValue.name}
-            onChange={handleChange}
-            text="NOMBRE DEL USUARIO">
-            </InputRegistro>
+           <div className="inputs-user">
+
+                <InputRegistro 
+                id="nombre" 
+                name="name" 
+                type="text"
+                value={actualValue.name}
+                onChange={handleChange}
+                text="Nombre">
+                </InputRegistro>
 
 
-            <InputRegistro 
-            id="apellido" 
-            name="surname" 
-            type="text"
-            value={actualValue.surname}
-            onChange={handleChange}
+                <InputRegistro 
+                id="apellido" 
+                name="surname" 
+                type="text"
+                value={actualValue.surname}
+                onChange={handleChange}
+                text="Apellido">
+                </InputRegistro>
 
-            text="APELLIDO">
-            </InputRegistro>
+           </div>
+           
+           <div className="inputs-user">
+                <InputRegistro 
+                id="contraseña" 
+                name="password" 
+                type="text"
+                value={actualValue.password}
+                onChange={handleChange}
+                text="Contraseña">
+                </InputRegistro>
 
-            <InputRegistro 
-            id="contraseña" 
-            name="password" 
-            type="text"
-            value={actualValue.password}
-            onChange={handleChange}
-            text="CONTRASEÑA">
-            </InputRegistro>
-
-            <InputRegistro 
-            id="contraseña" 
-            name="password" 
-            type="text"
-            value={actualValue.password_repeat}
-            onChange={handleChange}
-            text="REPETIR CONTRASEÑA">
-            </InputRegistro>
-
-            <ButtonPag 
-            text="ACEPTAR"
-            clr="bg-button2"
-            clrText="button"
-            width="w-full"
-            onClick={handleSubmit}
-            border="border-2 border-solid border-button2"
-            hoverButton="hover:bg-white hover:border-button2 hover:text-button2"
-            ></ButtonPag>
+                <InputRegistro 
+                id="contraseña" 
+                name="password" 
+                type="text"
+                value={actualValue.password_repeat}
+                onChange={handleChange}
+                text="Repetir Contraseña">
+                </InputRegistro>
+            </div>
+            <div className="w-full flex justify-center items-center">
+                <button 
+                onClick={handleSubmit}
+                className="button-infoUser">
+                    Realizar Cambios
+                </button>
+            </div>
+    
         </div>
 
     </>

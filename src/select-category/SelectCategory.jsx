@@ -29,27 +29,22 @@ function SelectCategory(){
     // hacete culear asincronia conchuda, pedaza de puta mal culeada
     return (
 
-        <div className="container-category bg-button p-2">
+        <div className="container-category bg-button p-2 roudend-md">
             
             <div className="inner-category">
-
-                <h2 className="font-medium text-button2 text-2xl text-end mr-4">Categoria</h2>
-
-                <div className="category">
-                    <select 
-                        name="Category" 
-                        id="category" 
-                        onClick={showCategory}>
-                            {
-                                filtrarCategories.map((category)=>(
-                                <option 
-                                value={category}
-                                key={category}>
-                                    {category}
-                                </option>
-                                ))
-                            }
-                    </select>
+                <div className="category flex items-center justify-center"
+                 name="Category" 
+                 id="category" 
+                 onClick={showCategory}>
+                {
+                filtrarCategories.map((category)=>(
+                    <button
+                    value={category}
+                    key={category}>
+                    {category}
+                    </button>
+                    ))
+                }
                 </div>
             </div>
             

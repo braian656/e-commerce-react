@@ -39,10 +39,11 @@ function InputRegistro({id ,name, type, text,value, onChange, err, setHaveErrs, 
     return(
         <div className="input-form flex items-center flex-col pt-2 relative">
             <div className="w-4/5 justify-start items-center">
-            <label
-            htmlFor={name}
-            className="font-semibold text-button"
-            >{text}</label> 
+                <label
+                htmlFor={name}
+                className="font-semibold text-button">
+                    {text}
+                </label> 
             </div>
             
             <input 
@@ -50,12 +51,12 @@ function InputRegistro({id ,name, type, text,value, onChange, err, setHaveErrs, 
             name={name}
             value={value}
             onChange={onChange}
-            className="bg-white text-slate-500 px-1 py-2 m-2 w-4/5" 
+            className="bg-white border border-solid border-[#ccc] focus:shadow-md outline-none rounded-lg text-slate-500 px-1 py-2 m-2 w-4/5" 
             type={type} 
             placeholder={text} 
             required
             /> 
-            <p className="text-xs text-start text-wrap w-80">
+            <p className="text-xs text-start text-wrap text-red-500 w-4/5">
                 {textPassword}
             </p>
             <span className="absolute top-10 -right-2 text-xs font-bold"> 

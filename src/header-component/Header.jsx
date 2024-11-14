@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useContext, useRef, useEffect, useState } from 'react';
 import { contextProducts } from '../context/context';
-import { ChevronDown } from 'lucide-react'
+import { AlignJustify } from 'lucide-react'
+import { useDispatch, useSelector } from 'react-redux';
+import { removeProduct } from '../store/features/cart';
+
+
 import ModalProductsUser from '../nav-component/ModalProductsUser';
 import UserNav from '../nav-component/UserNav';
 import EmptyCart from '../errors-component/EmpyCart'
@@ -10,16 +14,25 @@ import '../index.css'
 
 
 function Header({ actualUser,setUserLog, setActualUser}){
-    const {productCart,setProductCart, totalPrice, setTotalPrice,renderTotalPrice} = useContext(contextProducts)
-  
+  // Eliminar los estados: productCart,setProductCart, text (en caso de que funcione)
+    const {
+      productCart,
+      setProductCart,
+      totalPrice, 
+      setTotalPrice,
+      renderTotalPrice} = useContext(contextProducts)
+    
     const [menuOpen, setMenuOpen] = useState(false)
     const [modalProduct, setModalProduct] = useState(false)
 
+
+    const myCart = useSelector((state)=> state.handleCart.items)
+    const dispatch = useDispatch()
+
     const removeProductFromCart = (id, price)=>{
 
-        const removeProduct = productCart.filter((product) => product.id !== id)   
-        setProductCart(removeProduct)
-  
+        dispatch(removeProduct(id))
+        
         setTotalPrice((prevPrice)=>{
             const index = prevPrice.indexOf(price)
   
@@ -35,9 +48,8 @@ function Header({ actualUser,setUserLog, setActualUser}){
         })
 
     }
-
-
-    const showShoppingCart = productCart.map((pr)=>(
+    console.log(totalPrice)
+    const showShoppingCart = myCart.map((pr)=>(
       <ModalProductsUser
           key={pr.id} 
           id={pr.id} 
@@ -63,6 +75,7 @@ function Header({ actualUser,setUserLog, setActualUser}){
       console.log('que mierda esta pasando aca')
       setModalProduct(!modalProduct)
       if(menuOpen === true){
+        console.log('EEE')
         setMenuOpen(false)
       }
       
@@ -80,7 +93,8 @@ function Header({ actualUser,setUserLog, setActualUser}){
 
 
       const handleClick = (e)=>{    
-        if(!boxUserProduct.current.contains(e.target) && !buttonSeeModal.current.contains(e.target)){
+        if(!boxUserProduct.current.contains(e.target)
+          && !buttonSeeModal.current.contains(e.target)){
           setModalProduct(false)
         } else{
           setModalProduct(true)
@@ -92,34 +106,59 @@ function Header({ actualUser,setUserLog, setActualUser}){
       return () => {
         window.removeEventListener('click', handleClick);
       };
+
+     
+
+
     },[])
 
 
+
+    const closeMenu = (event)=>{
+    
+      if(event.target.dataset && event.target.dataset.type == 'link') setMenuOpen(false)
+
+      
+    }
+   
     return(
       <header className='bg-button p-2 sticky z-50 top-0 overflow-hidden'>
 
         <nav className='flex justify-between items-center '>
           <div className="logo w-10 h-10 z-50">
           <Link to="/">
-            <img className='w-full h-full ' src="../images/ecommerce.svg" alt="" />
+            <img className='w-full h-full' data-type="img" src="./images/ecommerce.svg" alt="e-commerce" />
           </Link>
             
           </div>
           
-          <ul className={`menu-sm ${handleClassMenu} bg-button sm:relative sm:top-0 sm:translate-y-0 sm:w-auto sm:h-auto sm:flex sm:flex-row sm:items-center sm:justify-center z-40`}>
+          <ul 
+          onClick={closeMenu}
+          className={`menu-sm ${handleClassMenu} bg-button sm:relative sm:top-0 sm:translate-y-0 sm:w-auto sm:h-auto sm:flex sm:flex-row sm:items-center sm:justify-center z-40`}>
             
-            <li className='mb-5 sm:mb-0'>
-              <Link to="/" className='text-anchor font-bold py-2 px-4'>
+            <li className='mb-5 sm:mb-0 ' >
+              <Link 
+              to="/" 
+              data-type="link"
+              className='text-anchor font-bold py-2 px-4'>
                 INICIO
               </Link>
             </li>
-            <li className='mb-5 sm:mb-0'>
-              <Link to="/wishlist" className='text-anchor font-bold py-2 px-4'>
+
+            <li className='mb-5 sm:mb-0' >
+              <Link 
+              data-type="link"
+              to="/wishlist" 
+              className='text-anchor font-bold py-2 px-4'>
                 MI LISTA
               </Link>        
             </li>
-            <li className='bg-button2 px-1 py-2 mb-5 text-text sm:mb-0'>
-              <Link to="/micuenta" className='text-anchor font-bold py-2 px-4'>
+
+            <li className='bg-body px-1 py-2 mb-5 text-text rounded-lg sm:mb-0'>
+              <Link 
+              data-type="link"
+              to="/micuenta" 
+              className='text-button font-bold py-2 px-4'>
                 MI CUENTA
               </Link>
             </li>
@@ -127,11 +166,7 @@ function Header({ actualUser,setUserLog, setActualUser}){
           </ul>  
 
 
-          <button 
-            className='btn-menu z-50 sm:hidden'
-            onClick={openMenu}>      
-            <ChevronDown size={32} color="#f2f2f2" />
-          </button>
+        
 
 
           <div className="btns-cart flex z-50">
@@ -152,19 +187,29 @@ function Header({ actualUser,setUserLog, setActualUser}){
 
             <button 
             ref={buttonSeeModal}
-            className='btn-cart z-50 bg-button2 px-1 py-2 ease-out duration-700 border-2
-            border-transparent hover:border-solid hover:border-button2 
+            className='btn-cart z-50 bg-body rounded-lg px-1 py-2 ease-out duration-700 border-2
+            border-transparent hover:border-button2 
             hover:bg-button hover:scale-105 hover:text-button2'
             onClick={seeModalProduct}>
 
               <span className='text-red-500 px-1 font-semibold rounded-md -z-10'>
-                {productCart.length}
+                {myCart.length}
               </span>
               
               <i className="fa-solid fa-cart-shopping -z-10"></i>
 
             </button>
+            
+            <button 
+            className='btn-menu z-50 sm:hidden'
+            onClick={openMenu}>   
+            
+            
+            <AlignJustify 
+             size={32} 
+             color="#2b2c30"/>
 
+            </button>
           </div>
         </nav>
 
@@ -175,7 +220,7 @@ function Header({ actualUser,setUserLog, setActualUser}){
           className='heirate-mich'
           ref={boxUserProduct}>
             {
-              Object.values(productCart).length == 0
+              Object.values(myCart).length == 0
               ? 
               <EmptyCart 
                 text="Looks like you haven't added anything to your cart yet.">
@@ -186,10 +231,10 @@ function Header({ actualUser,setUserLog, setActualUser}){
             {showShoppingCart}            
           </ul>
           
-          <div className={`${hanndleClassTotal} total_price justify-around items-center`}>
+          <div className={`${hanndleClassTotal} text-white bg-button2 p-2 rounded-lg total_price justify-around items-center`}>
   
-              <span className="total_title text-text">Total</span>
-              <span className="total text-button2 font-normal text-xl">
+              <span className="total_title">Total</span>
+              <span className="total font-normal text-xl">
                 ${totalPrice.length === 0 ? null : renderTotalPrice}
               </span>
   

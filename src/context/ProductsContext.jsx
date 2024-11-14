@@ -27,9 +27,8 @@ const ProductsContext = ({children})=>{
 
     const [totalPrice , setTotalPrice] = useState([])
 
-    const [selectingPrice, setSelectingPrice] = useState(null)
-    const [productCart, setProductCart] = useState([]);
-    const [textErr, setTextErr] = useState('')
+    const [selectingPrice, setSelectingPrice] = useState(null) /*Selecciona el precio, luego lo usa total price, para sumar y dar el total*/
+    // const [productCart, setProductCart] = useState([]);
     const [categories, setCategories] = useState([])
     const [userSelectedCategory, setUserSelectedCategory] = useState(['All'])
     const [someErr, setSomeErr] = useState('')
@@ -43,7 +42,7 @@ const ProductsContext = ({children})=>{
 
       
       setProductData(prod)
-      console.log(prod)
+      // console.log(prod)
 
       prod.forEach(element => {
         return setCategories(element.category)
@@ -51,7 +50,7 @@ const ProductsContext = ({children})=>{
 
      }catch(error){
       console.log('Error', error)
-      setSomeErr('Algo salio Mal...')
+      setSomeErr('ALGO SALIO MAL...')
      }
     }
 
@@ -74,28 +73,27 @@ const ProductsContext = ({children})=>{
       setOpenPagProduct(true)
       
     }
-   
+    const [activeItemId, setActiveItemId] = useState(null);
 
-    const productsSelecting = (id,image,product,price)=>{
-      const buscarDuplicado = productCart.find((product)=> product.id == id)
+    // const [animate, setAnimate] = useState(false)
 
-      if(!buscarDuplicado){
+    // const productsSelecting = (e,id,image,product,price)=>{
+    //   const buscarDuplicado = productCart.find((product)=> product.id == id)
+    //   if(!buscarDuplicado){
 
-        const item = {id:id, value:product, cost:price, img:image}
+    //     const item = {id:id, value:product, cost:price, img:image}
+    //     setProductCart((prevProduct) => [...prevProduct, item]);
+    //     setSelectingPrice(item.cost)
 
-        setProductCart((prevProduct) => [...prevProduct, item]);
+    //     // setAnimate(true); // Quita la clase de animación
+
+    //     setActiveItemId(prevId => (prevId === id ? null : id));
+
+
+    //   }
+
   
-        
-        setSelectingPrice(item.cost)
-        setTextErr('')
-
-      }else{
-        setTextErr('Producto añadido recientemente...')
-        return
-      }
-
-  
-    }
+    // }
 
     const renderTotalPrice = useMemo(() => {
       const sumProducts = totalPrice.reduce((acc, curr) => acc + curr, 0);
@@ -104,16 +102,20 @@ const ProductsContext = ({children})=>{
     
     
     useEffect(() => {
+
       if (selectingPrice !== null && !totalPrice.includes(selectingPrice)) {
         setTotalPrice((prevPrice) => [...prevPrice, selectingPrice]);
         setSelectingPrice(null)
         // no lo limpiada, por eso quedaba guardado el ultimo numeoro
       }
+
     }, [selectingPrice, totalPrice]); 
     // Añadimos totalPrice como dependencia
     
-  console.log('e???')
+    console.log(userSelectedCategory)
 
+
+   
     return(
 
         <contextProducts.Provider
@@ -121,9 +123,7 @@ const ProductsContext = ({children})=>{
           productData, 
           setProductData, 
           pagProduct, 
-          productsSelecting, 
-          productCart,
-          setProductCart,
+          activeItemId,
           totalPrice,
           setTotalPrice,
           actualProduct,
@@ -131,7 +131,6 @@ const ProductsContext = ({children})=>{
           renderTotalPrice,
           openPagProduct,
           setOpenPagProduct,
-          textErr,
           totalProducts,
           productsPerPage,
           currentPage,
@@ -146,7 +145,8 @@ const ProductsContext = ({children})=>{
           setPurchasedProducts,
           picUser,
           setPicUser,
-          setTextErr
+          setSelectingPrice,
+          setActiveItemId
         }}>
 
         {children}

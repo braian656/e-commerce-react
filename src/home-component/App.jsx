@@ -45,19 +45,20 @@ GitHub
   const [circle,setCircle] = useState({x:0,y:0})
 
   const [sliderActive, setSliderActive] = useState(true)
-  const [users , setUsers] = useState([])
   const [actualUser , setActualUser] = useState(null)
   const [userLog, setUserLog] = useState(false)
 
   const [list, setList] = useState([])
 
-  const wishItems = (_id, _image, _product, _description, _price)=>{
+  const wishItems = (_id, _image, _product, _description, _price,_cantidad,_color)=>{
     const whishProduct = {
     id : _id,
     image: _image,
     product : _product,
     description : _description,
     price : _price,
+    quantity : _cantidad,
+    color : _color
     }
     // por que no cargaba, por que react es asincrono, y este recibia el dato anterior 
     // del arr, que estaba vacio, por eso debia hacer un doble click.
@@ -115,7 +116,6 @@ GitHub
             path='/products/:productId'
             element={
             <Pagina 
-
             actualUser={actualUser}
             onClick={wishItems} 
             setSliderActive={setSliderActive} 
@@ -134,7 +134,6 @@ GitHub
           setUserLog={setUserLog} 
           actualUser={actualUser} 
           setActualUser={setActualUser}
-          addUsers={setUsers}
           ></DashboardUser>
 
           :        
@@ -142,8 +141,6 @@ GitHub
           <Registro  
           setSliderActive={setSliderActive} 
           setUserLog={setUserLog} 
-          addUsers={setUsers} 
-          users={users} 
           setActualUser = {setActualUser} 
           sliderState={setSliderActive}>
           </Registro>}>
@@ -152,8 +149,10 @@ GitHub
           <Route path='/wishlist' 
             element={
             <ProductsList 
+            actualUser = {actualUser}
             setSliderActive={setSliderActive} 
-            items={list}/>
+            items={list}
+            setList={setList}/>
             }>
           </Route> 
 
@@ -162,8 +161,7 @@ GitHub
             element={
             <SignIn 
             sliderActive={sliderActive}
-            setSliderActive={setSliderActive} 
-            users={users}>
+            setSliderActive={setSliderActive}>
             </SignIn>}
             >
           </Route>
