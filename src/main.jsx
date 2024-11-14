@@ -8,7 +8,8 @@ import './output.css'
 
 createRoot(document.getElementById('root')).render(
     <BrowserRouter>
-       <Provider store={store}>
+       <Provider 
+       store={store}>
         <App></App>
        </Provider>
     </BrowserRouter>
