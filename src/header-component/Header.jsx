@@ -9,7 +9,6 @@ import { removeProduct } from '../store/features/cart';
 import ModalProductsUser from '../nav-component/ModalProductsUser';
 import UserNav from '../nav-component/UserNav';
 import EmptyCart from '../errors-component/EmpyCart'
-import c from 'croppie';
 import '../index.css'
 
 
