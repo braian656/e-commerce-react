@@ -60,8 +60,7 @@ GitHub
     quantity : _cantidad,
     color : _color
     }
-    // por que no cargaba, por que react es asincrono, y este recibia el dato anterior 
-    // del arr, que estaba vacio, por eso debia hacer un doble click.
+  
     setList((prevWishList) => {
         const updatedWishList = [...prevWishList, whishProduct];
         
@@ -69,7 +68,6 @@ GitHub
         return updatedWishList;
     });
 }
-// VAMOS BRAIAN NO TE RINDAS!!
 
 
   return (
@@ -96,11 +94,7 @@ GitHub
         setSliderActive={setSliderActive} 
         sliderActive={sliderActive}>  
         </ContainerCardHome>
-        {/* select category deberia estar dentro del componente de las card creo
-         */}
-
-        {/* <SelectCategory></SelectCategory> */}
-
+  
 
         <Routes>
           <Route 
@@ -124,7 +118,7 @@ GitHub
             
 
           </Route>
-          <Route  path='/micuenta' 
+          <Route path='/micuenta' 
           element={
           userLog 
             ?
