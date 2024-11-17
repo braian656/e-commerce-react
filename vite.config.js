@@ -9,6 +9,7 @@ export default defineConfig({
       external: ['react-router-dom'] // Agrega esto
     }
   },
-  base: "/e-commerce-react/",
+  base: "/",
+  // base: '/',
   
 })

@@ -44,7 +44,7 @@ function Pagination ({sliderActive}){
     }
     // const handleClass = sliderActive || userSelectedCategory === '' ? 'flex' : 'hidden'
     console.log('El slider esta activo?',sliderActive)
-    console.log('Categoria del usuario', userSelectedCategory)
+    console.log('Categoria del usuario', userSelectedCategory == undefined)
     console.log(userSelectedCategory.includes('All'))
     const handleClass = !sliderActive || !userSelectedCategory.includes('All') ? 'hidden' : 'flex'
     

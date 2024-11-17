@@ -14,6 +14,7 @@ import '../index.css'
 
 function Header({ actualUser,setUserLog, setActualUser}){
   // Eliminar los estados: productCart,setProductCart, text (en caso de que funcione)
+  console.log('e')
     const {
       productCart,
       setProductCart,
