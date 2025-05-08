@@ -3,6 +3,8 @@ import {ChartLine} from 'lucide-react'
 import ButtonPag from "../buttons-component/ButtonPag"
 
 function  SliderInfo({bgContainer, image,title}){
+    console.log('COMPONENT SLIDERINFO')
+
     return(
 
     <div className="item-slider">
@@ -19,7 +21,7 @@ function  SliderInfo({bgContainer, image,title}){
             </button>
         </div>
         <div className="img-product">
-            <img src="./images/pngwing.com.png" alt="" />
+            <img src="./images/pngwing.com.png" alt="" loading='lazy'/>
         </div>
     </div>
     )

@@ -1,68 +1,100 @@
 import { Link } from 'react-router-dom';
-import { useContext, useRef, useEffect, useState } from 'react';
-import { contextProducts } from '../context/context';
-import { AlignJustify } from 'lucide-react'
+import { useContext,useRef, useEffect, useState, useCallback, useMemo } from 'react';
+import { AlignJustify, Contrast } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux';
+
+
+import { contextProducts } from '../context/context';
 import { removeProduct } from '../store/features/cart';
+
 
 
 import ModalProductsUser from '../nav-component/ModalProductsUser';
 import UserNav from '../nav-component/UserNav';
 import EmptyCart from '../errors-component/EmpyCart'
+
+
 import '../index.css'
 
+// Verificar uso del los useHooks - check
+
+// dividir en subcomponentes mas pequeños - si
 
 function Header({ actualUser,setUserLog, setActualUser}){
-  // Eliminar los estados: productCart,setProductCart, text (en caso de que funcione)
-  console.log('e')
+
+
+    // EL SLIDER DESAPARECE AL VOLVER
+    // al presionar AddTOCart el header se renderiza 4 veces mientras, que el carrito solo dos
+
+
+
+    // useCallback memoiza una funcion entera
+    // useMemo memoiza el resultado de una function,usualmente se usa con React.memo() en los hijos, para asegurar que no
+    // se renderize 
+    console.log('HEADER')
+
+
     const {
-      productCart,
-      setProductCart,
+
       totalPrice, 
       setTotalPrice,
-      renderTotalPrice} = useContext(contextProducts)
+      renderTotalPrice
+
+    } = useContext(contextProducts)
+
+    
+
+
+    console.log('totalPrice',totalPrice)
     
     const [menuOpen, setMenuOpen] = useState(false)
     const [modalProduct, setModalProduct] = useState(false)
 
 
     const myCart = useSelector((state)=> state.handleCart.items)
+
     const dispatch = useDispatch()
 
-    const removeProductFromCart = (id, price)=>{
+    const removeProductFromCart = useCallback((id, price)=>{
 
-        dispatch(removeProduct(id))
+
+      dispatch(removeProduct(id))
         
-        setTotalPrice((prevPrice)=>{
-            const index = prevPrice.indexOf(price)
-  
-            if(index > -1){
-              const updatePrice = [...prevPrice]
-              updatePrice.splice(index, 1)
-              console.log('Remueve el precio?',updatePrice)
-              return updatePrice
-            }
-  
-  
-            return prevPrice
-        })
+      setTotalPrice((prevPrice)=>{
+          const index = prevPrice.indexOf(price)
 
-    }
-    console.log(totalPrice)
-    const showShoppingCart = myCart.map((pr)=>(
-      <ModalProductsUser
-          key={pr.id} 
-          id={pr.id} 
-          image={pr.img} 
-          product={pr.value} 
-          price={pr.cost}
-          onClick={removeProductFromCart}>    
-      </ModalProductsUser>
-    ))
+          if(index > -1){
+            const updatePrice = [...prevPrice]
+            updatePrice.splice(index, 1)
+            return updatePrice
+          }
 
+          return prevPrice
+      })
+
+    }, [dispatch])
+  
+    // mostrar el carrito
+    // 1 render solucionado
+    const cartProducts = useMemo(()=>{
+      return myCart.map((pr)=>(
+
+        <ModalProductsUser
+            key={pr.id} 
+            id={pr.id} 
+            image={pr.img} 
+            product={pr.value} 
+            price={pr.cost}
+            onClick={removeProductFromCart}>    
+        </ModalProductsUser>
+  
+      ))
+    },[myCart, removeProductFromCart])
+    
+
+    // abrir menu en dispositivos mobiles
     const openMenu = ()=>{
       setMenuOpen(!menuOpen)
-      console.log('Esta el carro abiero?',modalProduct)
 
       if(modalProduct === true){
         setModalProduct(false)
@@ -70,68 +102,66 @@ function Header({ actualUser,setUserLog, setActualUser}){
 
     }
 
-    const seeModalProduct = (event)=>{
-      // event.stopPropagation()
-      console.log('que mierda esta pasando aca')
+    const seeModalProduct = ()=>{
       setModalProduct(!modalProduct)
+
       if(menuOpen === true){
-        console.log('EEE')
         setMenuOpen(false)
       }
       
     }
     const modalShow = modalProduct ? 'active-cart' : 'cart'
-    // const handleClassMenu = menuOpen ? '-translate-y-full z-10' : 'translate-y-0 z-50'
     const handleClassMenu = menuOpen ? 'translate-y-0 z-50' : '-translate-y-full -z-10'
 
     const hanndleClassTotal =  totalPrice.length === 0 ? 'hidden' : 'flex'
   
+    
+
+
+    // Si se clickeo fuera de la caja contenedora ocultar
     const boxUserProduct = useRef(null)
     const buttonSeeModal = useRef(null)
+    useEffect(() => {
 
-    useEffect(()=>{
-
-
-      const handleClick = (e)=>{    
-        if(!boxUserProduct.current.contains(e.target)
-          && !buttonSeeModal.current.contains(e.target)){
-          setModalProduct(false)
-        } else{
-          setModalProduct(true)
+      const handleClick = (e) => {
+        if (boxUserProduct.current &&
+          !boxUserProduct.current.contains(e.target) &&
+          !buttonSeeModal.current.contains(e.target)) {
+          setModalProduct(false);
         }
-      }
-
-      window.addEventListener('click', handleClick)
-
-      return () => {
-        window.removeEventListener('click', handleClick);
       };
 
-     
+      document.addEventListener('click', handleClick);
 
+      return () => {
+        document.removeEventListener('click', handleClick);
+      };
 
-    },[])
-
-
-
+    }, []);
+    
     const closeMenu = (event)=>{
     
       if(event.target.dataset && event.target.dataset.type == 'link') setMenuOpen(false)
 
       
     }
-   
+
     return(
       <header className='bg-button p-2 sticky z-50 top-0 overflow-hidden'>
 
         <nav className='flex justify-between items-center '>
           <div className="logo w-10 h-10 z-50">
           <Link to="/">
-            <img className='w-full h-full' data-type="img" src="./images/ecommerce.svg" alt="e-commerce" />
+            <img 
+            className='w-full h-full' 
+            data-type="img" 
+            src="./images/ecommerce.svg" 
+            alt="e-commerce" />
           </Link>
             
           </div>
           
+          {/* miniComponente menu */}
           <ul 
           onClick={closeMenu}
           className={`menu-sm ${handleClassMenu} bg-button sm:relative sm:top-0 sm:translate-y-0 sm:w-auto sm:h-auto sm:flex sm:flex-row sm:items-center sm:justify-center z-40`}>
@@ -172,7 +202,9 @@ function Header({ actualUser,setUserLog, setActualUser}){
           <div className="btns-cart flex z-50">
 
 
-            {actualUser !== null 
+            {
+
+            actualUser !== null 
             
             ? 
 
@@ -183,7 +215,9 @@ function Header({ actualUser,setUserLog, setActualUser}){
             ></UserNav>
 
             : 
-            null}
+            null
+            
+            }
 
             <button 
             ref={buttonSeeModal}
@@ -193,7 +227,7 @@ function Header({ actualUser,setUserLog, setActualUser}){
             onClick={seeModalProduct}>
 
               <span className='text-red-500 px-1 font-semibold rounded-md -z-10'>
-                {myCart.length}
+                {myCart.length} 
               </span>
               
               <i className="fa-solid fa-cart-shopping -z-10"></i>
@@ -219,16 +253,20 @@ function Header({ actualUser,setUserLog, setActualUser}){
           <ul 
           className='heirate-mich'
           ref={boxUserProduct}>
+
             {
               Object.values(myCart).length == 0
               ? 
               <EmptyCart 
+                zIndex="z-50"
                 text="Looks like you haven't added anything to your cart yet.">
               </EmptyCart> 
               : 
               ''
-              }
-            {showShoppingCart}            
+            }
+
+
+            {cartProducts}            
           </ul>
           
           <div className={`${hanndleClassTotal} text-white bg-button2 p-2 rounded-lg total_price justify-around items-center`}>

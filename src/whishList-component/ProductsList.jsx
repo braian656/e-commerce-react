@@ -1,14 +1,23 @@
+// hooks
 import { useContext, useEffect, useRef ,useState} from 'react';
+
+
+// components
+import Cantidad from '../page-product/sub-component-pag/Cantidad';
+import Error from '../errors-component/Error';
 import ProductCard from '../card-product-component/Card';
 import ButtonPag from '../buttons-component/ButtonPag';
 import EmptyCart from '../errors-component/EmpyCart';
-import Error from '../errors-component/Error';
+
+// provider
 import { contextProducts } from "../context/context"
-import Cantidad from '../page-product/Cantidad';
 
+// Verificar uso del los useHooks - check
 
+function ProductsList({items,setList,actualUser, setActiveComponents}){
 
-function ProductsList({setSliderActive,items,setList,actualUser}){
+    console.log('COMPONENTe PRODUCT LIST')
+
     const [ showModalError, setshowModalError] = useState(false)
 
     const {
@@ -77,24 +86,29 @@ function ProductsList({setSliderActive,items,setList,actualUser}){
 
 
     useEffect(()=>{
-        setSliderActive(false)
+       setActiveComponents(false)
 
 
     }, [])
     return(
 
         <section id="wishList" 
-        className="p-2 flex justify-center items-center flex-col flex-wrap">
-
-        <Error 
-        visible={showModalError} 
-        handleModal={handleModalWishList}
-        messageModal="Registrate para continuar"
-        colorBtn='bg-green-500'
-        image="/images/hearts.svg"
+        // className="p-2 flex justify-center items-center flex-col flex-wrap"
         >
-        </Error>
-
+        {
+            showModalError
+            &&
+            <Error 
+            visible={showModalError} 
+            handleModal={handleModalWishList}
+            messageModal="Registrate para continuar"
+            colorBtn='bg-green-500'
+            image="/images/hearts.svg"
+            >
+            </Error>
+        
+        }
+        
             <div className="title-wishList">
 
                 <h1 className='h1-wishList'>
@@ -113,6 +127,7 @@ function ProductsList({setSliderActive,items,setList,actualUser}){
                 mapWishList
                 :  
                 <EmptyCart 
+                zIndex="z-0"
                 text="Aun no hay nada por aqui...">
                 </EmptyCart> 
             }

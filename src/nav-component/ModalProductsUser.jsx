@@ -1,19 +1,12 @@
-import { useState, useContext } from "react"
+import { useState, useContext, memo } from "react"
 import { contextProducts } from "../context/context"
+
+// Verificar uso del los useHooks - check
 
 
 function ModalProductsUser({id,image,product,price, onClick}){
 
-    // Debemos sumar cada producto y mostra el total
-    // console.log(price)
-    // const total = price.reduce((acc, num)=> acc + num)
-    // console.log(total)
-
-    // const currentPrice = [...price]
-    // const total = currentPrice.reduce((acc, curr)=> acc + curr);
-
-
-
+    console.log('Renderizando ModalProductoUser')
     return (
             
 
@@ -26,7 +19,8 @@ function ModalProductsUser({id,image,product,price, onClick}){
                         <img 
                         src={image} 
                         alt={product}
-                        className="object-cover w-full h-full"/>
+                        className="object-cover w-full h-full"
+                        loading="lazy"/>
                     </div>
                     <div className="info text-left flex-1">
                         <h1 className="title text-white font-normal text-lg">

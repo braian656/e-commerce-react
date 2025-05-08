@@ -8,8 +8,12 @@ import Error from "../errors-component/Error"
 
 import { useSelector, useDispatch } from "react-redux";
 import { addUser } from "../store/features/register"
+// Verificar uso del los useHooks - check
 
 function InfoUser({actualUser, setActualUser}){
+
+
+    console.log('INFO USER')
     const {picUser} = useContext(contextProducts)
     const dispatch = useDispatch()
 
@@ -61,6 +65,7 @@ function InfoUser({actualUser, setActualUser}){
         
         if(errors.length > 0){
             setMessage(errors)
+            console.log(errors)
 
             return
         }
@@ -100,15 +105,22 @@ function InfoUser({actualUser, setActualUser}){
         };
         setActualValue(newValues);         
     }
+
     const handleClassModal = ()=>{
         setModalVisible(false)
     }
+
+    console.log('Datos en actualValue infoUser Component',actualValue)
+    
     return(
     <>
 
 
         <div className="section-info">
 
+            {
+            modalVisible 
+            &&
             <Error 
             visible={modalVisible} 
             messageModal="DESEA REALIZAR CAMBIOS??"
@@ -116,8 +128,11 @@ function InfoUser({actualUser, setActualUser}){
             colorBtn="bg-red-500"
             image="./images/danger.svg"
             title="Realizar cambios"
-            handleModal={handleClassModal}
-            ></Error>
+            handleModal={handleClassModal}>
+            </Error>
+            }
+
+           
         
             <PicPerfil 
             picUser={picUser}>

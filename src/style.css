@@ -26,3 +26,11 @@
     background-position: center;
     background-size: cover;
   }
+  #whishList {
+    position: relative;
+    z-index: -1;
+    background-color: #ccc;
+  }
+  .empty-cart{
+    background-color: red;
+  }

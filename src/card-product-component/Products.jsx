@@ -1,16 +1,28 @@
-import { useContext } from "react"
+// Hooks
+import { useCallback, useContext, useMemo, useState } from "react"
 import { contextProducts } from "../context/context"
-import { Link } from "react-router-dom"
+
+// Components
 import ServerError from '../errors-component/ServerError'
 import Error from "../errors-component/Error"
-import { useState } from "react"
-import { useEffect } from "react"
-import { useRef } from "react"
 
+
+// Redux
 import { useSelector,useDispatch} from "react-redux"
+
+// React Router
+import { Link } from "react-router-dom"
+
+
+
 import { addProduct, resetMessage} from "../store/features/cart"
 
+// Verificar uso del los useHooks - check
+
 function Products(){
+
+
+  console.log('RENDERIZADOS DE LOS PRODUCTOS')
 
 
   const {
@@ -46,9 +58,9 @@ function Products(){
 
   })
 
-  console.log(category)
 
-  const addToCart = (id, image, product, price)=>{    
+  const addToCart = useCallback((id, image, product, price)=>{
+    console.log('Func addToCart')
     const item = {
       id:id, 
       value:product, 
@@ -60,9 +72,33 @@ function Products(){
     setSelectingPrice(item.cost)
     setActiveItemId(prevId => (prevId === id ? null : id));
     dispatch(addProduct(item))
-  }
-    // problema a solucionar, cuando el la categoraia All, paso a los siguientes productos, y luego
+
+  }, [dispatch])
+
+
+
+
+  // const addToCart = (id, image, product, price)=>{    
+  //   const item = {
+  //     id:id, 
+  //     value:product, 
+  //     cost:price, 
+  //     img:image
+  //   }
+
+
+  //   setSelectingPrice(item.cost)
+  //   setActiveItemId(prevId => (prevId === id ? null : id));
+  //   dispatch(addProduct(item))
+  // }
+
+    // selecciono all, luego selecciono otra categoria, hay un error sobre un include
     // presiono otra categoria, la categoria no aparece
+
+
+
+
+
   const showProduct = category.map((product)=>(
 
             <article 
@@ -76,14 +112,22 @@ function Products(){
               <div 
                 onClick={
                 ()=>
-                pagProduct(product.id, product.image, product.title, product.description, product.price, product.category,product.rating.rate)
+                pagProduct(
+                  product.id, 
+                  product.image, 
+                  product.title, 
+                  product.description, 
+                  product.price, 
+                  product.category,
+                  product.rating.rate)
                 }>
                 <div className='pic bg-white h-60 p-1'>
 
                   <img 
                   className="w-full h-full object-contain" 
                   src={product.image} 
-                  alt={product.title} />
+                  alt={product.title}
+                  loading="lazy" />
 
 
                 </div>
@@ -106,10 +150,10 @@ function Products(){
 
             
               </Link>
-              {activeItemId === product.id && (
+              {/* {activeItemId === product.id && (
                 <p className="active_animation">PRODUCTOR AÑADIDO</p>
 
-              )}
+              )} */}
                 <button 
                 onClick={
                   ()=>
@@ -130,8 +174,6 @@ function Products(){
     setModalVisible(true)
     dispatch(resetMessage())
   }
-
-  console.log(showProduct)
 
     return (
     <>

@@ -1,5 +1,9 @@
 import {Heart} from 'lucide-react'
+
+// Verificar uso del los useHooks - check
+
 function ProductCard({id,image,product, description,price}){
+  console.log('COMPONENTE CARD')
 
     return(
         <article id={id} className="card-wishlist relative cursor-pointer w-full overflow-hidden shadow-lg  m-3 sm:w-80 hover:drop-shadow-lg">
@@ -13,7 +17,8 @@ function ProductCard({id,image,product, description,price}){
             <div className='pic w-full  overflow-hidden'>
               <img className="w-full h-full"
               src={image} 
-              alt={product} />
+              alt={product}
+              loading='lazy' />
             </div>
             <div className="px-6 flex items-center justify-between flex-col">
               <h2 className="py-2 font-bold uppercase	text-lg text-center text-button tracking-widest w-full">

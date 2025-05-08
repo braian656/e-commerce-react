@@ -1,7 +1,8 @@
-import { useState } from "react"
+import React from "react"
+// Verificar uso del los useHooks - check
 
 function Cantidad({count,onClickIncrement, onClickDecrement}){
-
+    console.log('COMPONENTE CANTIDAD')
    
     
     return (
@@ -22,4 +23,4 @@ function Cantidad({count,onClickIncrement, onClickDecrement}){
     )
 }
 
-export default Cantidad
+export default React.memo(Cantidad)

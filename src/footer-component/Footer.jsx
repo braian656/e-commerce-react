@@ -1,3 +1,5 @@
+// Verificar uso del los useHooks - check
+
 function Footer (){
 
 

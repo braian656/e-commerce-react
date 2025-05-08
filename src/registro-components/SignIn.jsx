@@ -1,15 +1,20 @@
+// hooks
 import { useContext, useEffect, useState } from "react"
-import InputRegistro from "./InputRegistro"
-import { contextProducts } from "../context/context"
-import { useDispatch , useSelector} from "react-redux"
-import ButtonPag from "../buttons-component/ButtonPag"
-
 import { useNavigate } from "react-router-dom"
 
+// redux
+import { useDispatch , useSelector} from "react-redux"
 
-function SignIn({setOpenPagProduct,setSliderActive,sliderActive}){
 
-    console.log('Por que mierda no funcionas hijo de puta')
+// components
+import ButtonPag from "../buttons-component/ButtonPag"
+import InputRegistro from "./InputRegistro"
+
+// Verificar uso del los useHooks - check
+
+function SignIn({setOpenPagProduct,activeComponents,setActiveComponents}){
+
+    console.log('CONTAINER SIGNIN')
     const dataUsers = useSelector((state) => state.registerUser.users)
 
     const [verifyAccount,setVerifyAccount] = useState(
@@ -58,15 +63,13 @@ function SignIn({setOpenPagProduct,setSliderActive,sliderActive}){
 
         setVerifyAccount(newValues)
     }
-    useEffect(()=>{
 
-        if(sliderActive == true){
-            setSliderActive(false)
-        }
+    useEffect(()=>{
+    // setActiveComponents(false)
+    console.log('estado activeComponenet', activeComponents)
         
-        // setOpenPagProduct(false)
-        // setSliderActive(false)
-    })
+
+    }, [])
 
     return(
         <section className="sign-in flex justify-center items-center relative w-full h-[600px]">
@@ -104,7 +107,7 @@ function SignIn({setOpenPagProduct,setSliderActive,sliderActive}){
                         hoverButton="hover:text-zinc-900 hover:bg-white border-zinc-900">         
                     </ButtonPag>
                 </div>
-                </form>
+            </form>
         </section>
     )
 

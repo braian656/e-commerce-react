@@ -1,6 +1,10 @@
+
+// Verificar uso del los useHooks - check
+
 function TableItems({items}){
   console.log(items)
 
+    console.log('COMPONENT TABLEITEMS')
     const table = items.map((item, i)=>(
 
       <article key={i} className="prod">
@@ -21,7 +25,7 @@ function TableItems({items}){
         
             {table}
 
-           
+  
 
         </>
     )

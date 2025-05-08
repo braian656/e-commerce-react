@@ -1,25 +1,33 @@
 import { useEffect, useState } from "react"
-
+// verfificacion de los useState - check
 function InputRegistro({id ,name, type, text,value, onChange, err, setHaveErrs, haveErrs,textPassword}){
+
+
+    console.log('COMPONENTES INPUTS')
     const [actualErr, setActualErr] = useState('');
     const [activeMsj, setActiveMsj] = useState(false)
+
+
     function handleErrors() {
-    if (haveErrs) {
-        const filtrar = err.find((error) => Object.keys(error).includes(name));
 
-    if (filtrar) {
-        setActualErr(filtrar[name]);
-        setActiveMsj(true)
-    } else {
-        setActualErr('');
-        setActiveMsj(false)
-    }
+            if (haveErrs) {
 
 
-    } else {
-        setActualErr(''); 
-        setActiveMsj(false)
-    }
+                const filtrar = err.find((error) => Object.keys(error).includes(name));
+
+                    if (filtrar) {
+                        setActualErr(filtrar[name]);
+                        setActiveMsj(true)
+                    } else {
+                        setActualErr('');
+                        setActiveMsj(false)
+                    }
+
+
+            } else {
+                setActualErr(''); 
+                setActiveMsj(false)
+            }
 
     }
 
@@ -38,6 +46,7 @@ function InputRegistro({id ,name, type, text,value, onChange, err, setHaveErrs, 
     
     return(
         <div className="input-form flex items-center flex-col pt-2 relative">
+            
             <div className="w-4/5 justify-start items-center">
                 <label
                 htmlFor={name}
@@ -54,11 +63,12 @@ function InputRegistro({id ,name, type, text,value, onChange, err, setHaveErrs, 
             className="bg-white border border-solid border-[#ccc] focus:shadow-md outline-none rounded-lg text-slate-500 px-1 py-2 m-2 w-4/5" 
             type={type} 
             placeholder={text} 
-            required
-            /> 
+            required/> 
+
             <p className="text-xs text-start text-wrap text-red-500 w-4/5">
                 {textPassword}
             </p>
+
             <span className="absolute top-10 -right-2 text-xs font-bold"> 
                 {activeMsj && <p className="text-red-600 duration-300 ease-out">{actualErr}</p>}
             </span>

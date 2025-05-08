@@ -14,6 +14,9 @@ const initialWishlistItems = [
 ]
 
 export default function Wishlist() {
+
+
+  console.log('COMPONENT WHISLIST')
 //   const [wishlistItems, setWishlistItems] = useState(initialWishlistItems)
 
 //   const removeItem = (id: number) => {
@@ -30,6 +33,7 @@ export default function Wishlist() {
       {wishlistItems.length > 0 ? (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-6">
+
             {wishlistItems.map((item) => (
               <Card key={item.id} className="overflow-hidden">
                 <CardContent className="p-0">
@@ -38,6 +42,7 @@ export default function Wishlist() {
                       src={item.image}
                       alt={item.title}
                       className="w-full h-48 object-cover"
+                      loading="lazy"
                     />
                     <Button
                       variant="destructive"
@@ -56,6 +61,7 @@ export default function Wishlist() {
                 </CardContent>
               </Card>
             ))}
+
           </div>
           <Button variant="destructive" onClick={clearWishlist} className="flex items-center">
             <Trash2 className="mr-2 h-4 w-4" />

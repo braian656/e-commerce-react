@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom"
 import {X} from 'lucide-react'
 
 
+// Verificar uso del los useHooks - check
+
 function Error ({visible, messageModal, txtButton,actualUser,colorBtn, image,title, handleModal}){
     const navigate = useNavigate()
 
@@ -10,11 +12,12 @@ function Error ({visible, messageModal, txtButton,actualUser,colorBtn, image,tit
         navigate("/SignIn")
     }
 
-    const visibility = visible ? 'flex' : 'hidden'
+    // const visibility = visible ? 'flex' : 'hidden'
 
 
+    console.log('COMPONENTE ERROR')
     return (
-        <article className={`${visibility} modal-info`}>    
+        <article className={`modal-info`}>    
             <div className="content relative w-full">
                 <span 
                 onClick={handleModal} 
@@ -22,7 +25,11 @@ function Error ({visible, messageModal, txtButton,actualUser,colorBtn, image,tit
                     <X />
                 </span>
                 <div className="content-img">
-                    <img className="w-24 h-24 object-cover" src={image} alt={image} />
+                    <img 
+                    className="w-24 h-24 object-cover" 
+                    src={image} 
+                    alt={image}
+                    loading="lazy" />
                 </div>           
                 <div className="content-info">
                     <h1 className="title text-4xl text-white mb-2">

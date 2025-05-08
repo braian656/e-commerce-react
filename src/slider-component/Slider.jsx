@@ -1,4 +1,6 @@
-import React, { useRef, useState } from 'react';
+
+// hooks
+import React, { useContext, useRef, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -13,16 +15,26 @@ import '../index.css'
 
 // import required modules
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-
 import SliderInfo from './SliderInfo';
-// Importa los módulos necesarios
-function Slider ({setSliderActive, sliderActive})  {
+
+// provider
 
 
-    const hanndleClass = !sliderActive ? 'hidden' : 'block'
+function Slider ({activeComponents})  {
+
+    console.log('COMPONENT SLIDER')
+    const handleClass = !activeComponents ? 'hidden' : 'block'
+    // let classItem
+    // if(!activeComponents){
+    //     classItem = 'hidden'
+    // }
+
+    
     return (
         <>
-        <div className={`${hanndleClass}`}>
+        
+    
+        <div className={`block`}>
         <Swiper 
             spaceBetween={50}
             centeredSlides={true}
@@ -39,13 +51,17 @@ function Slider ({setSliderActive, sliderActive})  {
             id="swiper"
             >
 
-            <SwiperSlide
-            id='swiper-slide'>
+            <SwiperSlide id='swiper-slide'>
+
                 <SliderInfo></SliderInfo>
+
             </SwiperSlide>
         </Swiper>
     
         </div>
+        
+
+        
         
         </>
     );

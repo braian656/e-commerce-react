@@ -1,9 +1,19 @@
+
+// hooks
 import { useContext, useState } from "react"
+
+
+// icons
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import { contextProducts } from "../context/context"
 
-function Pagination ({sliderActive}){
+// provider
+import { contextProducts } from "../context/context"
+// Verificar uso del los useHooks - check
+
+function Pagination ({activeComponents, setActiveComponents}){
+
+  console.log('COMPONENTE PAGINATION')
     const {
       totalProducts, 
       productsPerPage,
@@ -43,10 +53,10 @@ function Pagination ({sliderActive}){
 
     }
     // const handleClass = sliderActive || userSelectedCategory === '' ? 'flex' : 'hidden'
-    console.log('El slider esta activo?',sliderActive)
-    console.log('Categoria del usuario', userSelectedCategory == undefined)
-    console.log(userSelectedCategory.includes('All'))
-    const handleClass = !sliderActive || !userSelectedCategory.includes('All') ? 'hidden' : 'flex'
+    // console.log('El slider esta activo?',sliderActive)
+    // console.log('Categoria del usuario', userSelectedCategory == undefined)
+    // console.log(userSelectedCategory.includes('All'))
+    const handleClass = !activeComponents || !userSelectedCategory.includes('All') ? 'hidden' : 'flex'
     
 
     return (

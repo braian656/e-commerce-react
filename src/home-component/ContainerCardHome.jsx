@@ -1,11 +1,17 @@
-import CardHome from './CardHome'
-import SelectCategory from '../select-category/SelectCategory'
+// icons
 import { CreditCard ,ShoppingCart, Laptop} from 'lucide-react'
 
-function ContainerCardHome({setSliderActive, sliderActive}){       
+// components
+import CardHome from './CardHome'
+import SelectCategory from '../select-category/SelectCategory'
 
+// Verificar uso del los useHooks - check
+function ContainerCardHome({activeComponents}){       
 
-    const handleClass = !sliderActive ? 'hidden' : 'block'
+    // console.log(sliderActive)
+    console.log('Renderizado del ContainerCardHome')
+    // 
+    const handleClass = !activeComponents ? 'hidden' : 'block'
 
     return(
         <section className={`${handleClass} bg-body container-card-home p-3`}>

@@ -1,10 +1,20 @@
 import { useContext, useEffect, useState } from "react"
 import { contextProducts } from "../context/context"
 
+// Verificar uso del los useHooks - check
 
 function SelectCategory(){
 
-    const {productData, categories, setUserSelectedCategory} = useContext(contextProducts)
+    console.log('CONTAINER SELECT CATEGORIA')
+
+
+    const {
+
+        productData,
+        categories,
+        setUserSelectedCategory
+
+        } = useContext(contextProducts)
 
     const arrCategories = []
 
@@ -26,13 +36,14 @@ function SelectCategory(){
    const showCategory = (e)=>{
      setUserSelectedCategory(e.target.value)
    }
+
     // hacete culear asincronia conchuda, pedaza de puta mal culeada
     return (
 
         <div className="container-category bg-button p-2 roudend-md">
             
             <div className="inner-category">
-                <div className="category flex items-center justify-center"
+                <div className="category flex items-center justify-center bg-gray-500"
                  name="Category" 
                  id="category" 
                  onClick={showCategory}>

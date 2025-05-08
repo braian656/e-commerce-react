@@ -1,14 +1,30 @@
-import { act, useContext, useEffect, useReducer, useState } from "react"
-import Error from "../errors-component/Error"
-import ChoseColor from "./ChoseColor"
-import Cantidad from "./Cantidad"
-import ButtonPag from "../buttons-component/ButtonPag"
-import { contextProducts } from "../context/context"
+// hooks
+import { act,
+        useContext,
+        useEffect,
+        useReducer,
+        useState,
+        useCallback } from "react"
+
+
 import { useNavigate } from "react-router-dom"
 
-import SignIn from "../registro-components/SignIn"
 
-function Pagina({actualUser,onClick, setSliderActive}){
+// components
+import SignIn from "../registro-components/SignIn"
+import Error from "../errors-component/Error"
+import SubComponentPag from './sub-component-pag/SubComponentPag'
+import ButtonPag from "../buttons-component/ButtonPag"
+
+// Provider
+import { contextProducts } from "../context/context"
+
+// Verificar uso del los useHooks - check
+
+
+function Pagina({actualUser,onClick,setActiveComponents}){
+
+    console.log('COMPONENTE PAGINA')
 
     const navigate = useNavigate()
 
@@ -18,7 +34,9 @@ function Pagina({actualUser,onClick, setSliderActive}){
             setOpenPagProduct,
             openPagProduct,
             setPurchasedProducts,
-            purchasedProducts} = useContext(contextProducts)
+            purchasedProducts
+        } = useContext(contextProducts)
+
 
     
     const [noUser, setNoUser] = useState(true) /*Verifico si el user tiene cuenta o no*/
@@ -32,86 +50,72 @@ function Pagina({actualUser,onClick, setSliderActive}){
     const [quantity, setQuantity] = useState(1) /*Cantidad de producto a ordenar, por defecto siempre 1*/
     const [color,setColor] = useState('')
 
-    const handlePreference = (e) => {
-            e.preventDefault()
-            setColor(e.target.dataset.clr)
-    };
-    
-    const increment = ()=>{
-        setQuantity(quantity + 1)            
-    }
 
-    const decrement = ()=>{
-        setQuantity(quantity > 0 ? quantity-1 : 0)
-    }
-    console.log(actualProduct)
+    const handleData = useCallback(()=>{
 
-    const handleData = () => {
+
+        if (actualUser === null) {
+            setNoUser(false);
+            setMessage('Inicia sesion para realizar la compra.');
+            setTxtButton('IR A MI CUENTA');
+            setShowMessageErr(true);
+            setImgError('/images/sad-circle.svg')
+            setTitleModal('Accede para Continuar')
+
+            return;
+        }
+        if (quantity !== 0 && color !== '') {
+            let allFieldsFilled = true;
+        
+            if (allFieldsFilled) {
+
+                const preference = {
+
+                    producto: actualProduct.product, 
+                    price : actualProduct.total ,
+                    color: color, 
+                    cantidad: quantity,
     
-            // Si el usuario no ha iniciado sesión
-            if (actualUser === null) {
-                setNoUser(false);
-                setMessage('Inicia sesion para realizar la compra.');
-                setTxtButton('IR A MI CUENTA');
+                };
+
+                
+                // Si todos los campos son válidos
+                setPurchasedProducts(prevProducts => [...prevProducts, preference]);
+                // esto evita un anidado de arr
+                setMessage(actualProduct.product);
+                setTxtButton('Aceptar');
                 setShowMessageErr(true);
-                setImgError('/images/sad-circle.svg')
-                setTitleModal('Accede para Continuar')
+                setImgError('/images/check.svg')
+                setTitleModal('¡Compra realizada con éxito!')
     
-                return;
-            }
-            if (quantity !== 0 && color !== '') {
-                let allFieldsFilled = true;
-            
-                if (allFieldsFilled) {
-
-                    const preference = {
-
-                        producto: actualProduct.product, 
-                        price : actualProduct.total ,
-                        color: color, 
-                        cantidad: quantity,
-        
-                    };
-
-                    
-                    // Si todos los campos son válidos
-                    setPurchasedProducts(prevProducts => [...prevProducts, preference]);
-                    // esto evita un anidado de arr
-                    setMessage(actualProduct.product);
-                    setTxtButton('Aceptar');
-                    setShowMessageErr(true);
-                    setImgError('/images/check.svg')
-                    setTitleModal('¡Compra realizada con éxito!')
-        
-                    return
-                } else {
-                    // Si algún campo es inválido
-                    setMessage('Rellene los campos necesarios para realizar su compra');
-                    setTxtButton('CERRAR');
-                    setShowMessageErr(true);
-                    setImgError('/images/ghost.svg')
-                    setTitleModal('Informacion requerida')
-    
-                }
+                return
             } else {
-                // Si no hay ninguna preferencia
+                // Si algún campo es inválido
                 setMessage('Rellene los campos necesarios para realizar su compra');
                 setTxtButton('CERRAR');
                 setShowMessageErr(true);
                 setImgError('/images/ghost.svg')
                 setTitleModal('Informacion requerida')
-    
-    
-            }
-    
-    
-    
-    
-    
-    
-    };
 
-   
+            }
+        } else {
+            // Si no hay ninguna preferencia
+            setMessage('Rellene los campos necesarios para realizar su compra');
+            setTxtButton('CERRAR');
+            setShowMessageErr(true);
+            setImgError('/images/ghost.svg')
+            setTitleModal('Informacion requerida')
+
+
+        }
+
+
+
+
+        
+    },[color,quantity])
+
+
     const [num, setNum] = useState();
     const showStars = Array.from({ length: num }, (_, i) => (
 
@@ -126,20 +130,19 @@ function Pagina({actualUser,onClick, setSliderActive}){
 
     useEffect(()=>{
 
+        
+        setActiveComponents(false)
 
-    productData.forEach(item => {
-            if(item.id === actualProduct.index){
-                setNum(Math.round(item.rating.rate))
-            }
-    });
+
+        productData.forEach(item => {
+                if(item.id === actualProduct.index){
+                    // Esta actualizando un estado setNum
+                    setNum(Math.round(item.rating.rate))
+                }
+        });
 
 
     },[actualProduct.index, productData])
-    
-
-    useEffect(()=>{
-        setSliderActive(false)
-    }, [])
 
 
     const handleModal = ()=>{
@@ -150,13 +153,18 @@ function Pagina({actualUser,onClick, setSliderActive}){
 
     const addToWishList = ()=>{
         if (quantity !== 0 && color !== ''){
-            onClick(actualProduct.index,
+
+            onClick(
+
+                actualProduct.index,
                 actualProduct.image,
                 actualProduct.product,
                 actualProduct.descr,
                 actualProduct.total,
                 quantity, 
-                color)
+                color
+
+            )
     
             setWishListModal(true)
         }
@@ -170,42 +178,61 @@ function Pagina({actualUser,onClick, setSliderActive}){
     }
 
    
-    
+    // optimizar aca, pagina ya esta cargada, solo queremos renderizar los elmentos
+    // interactivo dentro
     return(
 
     <section 
     className={`${showMesaggeErr || wishListModal ? 'bg-opacity' : 'bg-body'} p-2  flex justify-center items-center flex-col`}>
 
-        <Error 
-        visible={showMesaggeErr} 
-        handleModal={handleModal}
-        messageModal={message}
-        txtButton={txtButton}
-        actualUser = {actualUser}
-        colorBtn='bg-green-500'
-        image={imgError}
-        title={titleModal}
-        >
-        </Error>
+   
+        {
+            showMesaggeErr
 
+            &&
+            
+            <Error 
+            visible={showMesaggeErr} 
+            handleModal={handleModal}
+            messageModal={message}
+            txtButton={txtButton}
+            actualUser = {actualUser}
+            colorBtn='bg-green-500'
+            image={imgError}
+            title={titleModal}
+            >
+            </Error>
+        }
+    
 
-        <Error 
-        visible={wishListModal} 
-        handleModal={handleModalWishList}
-        messageModal="Producto Agregado a la lista de deseos"
-        txtButton={txtButton}
-        actualUser = {actualUser}
-        colorBtn='bg-green-500'
-        image="/images/hearts.svg"
-        title="Producto agregado"
-        >
-        </Error>
-        <div id={actualProduct.index} className="p-2 product-pag rounded-xl bg-button2 my-[2vh] sm:flex sm:justify-between  sm:items-center">
-            <div className="product_image bg-white h-[70vh] sm:w-[44%] rounded-xl shadow-md  sm:min-w-[220px] flex justify-center items-center">
+        {
+            wishListModal 
+
+            &&
+            
+            <Error 
+            visible={wishListModal} 
+            handleModal={handleModalWishList}
+            messageModal="Producto Agregado a la lista de deseos"
+            txtButton={txtButton}
+            actualUser = {actualUser}
+            colorBtn='bg-green-500'
+            image="/images/hearts.svg"
+            title="Producto agregado"
+            >
+            </Error>
+        }
+
+        <div 
+        id={actualProduct.index} 
+        className="p-2 product-pag rounded-xl bg-button2 my-[2vh] sm:flex sm:justify-between  sm:items-center">
+            <div 
+            className="product_image bg-white h-[70vh] sm:w-[44%] rounded-xl shadow-md  sm:min-w-[220px] flex justify-center items-center">
                 <img 
                 src={actualProduct.image}
                 alt={actualProduct.product}
-                className="w-full h-full sm:h-auto object-contain object-center sm:h-full sm:w-auto" />
+                className="w-full h-full sm:h-auto object-contain object-center sm:h-full sm:w-auto" 
+                loading="lazy"/>
             </div>
 
             <div className="producto_detail p-5 sm:w-[56%] flex justify-center items-center">
@@ -236,42 +263,10 @@ function Pagina({actualUser,onClick, setSliderActive}){
                         </p>
                     </div>
 
-                    <div className="preference flex items-center sm:my-5">
-
-                        <div className="preference_box mx-4">
-
-                            <h3 className="quantity text-white my-1.5 text-center">
-                                Cantidad
-                            </h3>
-
-                            <Cantidad 
-                                onClickIncrement={increment}
-                                onClickDecrement={decrement}
-                                count={quantity} 
-                                setCount={setQuantity}>
-                            </Cantidad>
-                        </div>        
-                        <div className="preference_box mx-4">
-                            <ChoseColor
-                            onClick={handlePreference} 
-                            clr1="bg-red-500" 
-                            clr2="bg-blue-500" 
-                            clr3="bg-green-500"
-                            ></ChoseColor>
-                        </div> 
 
 
-                        <div className="preference_box">
-                            <h3 className="total text-white my-1.5 mx-4 text-center">
-                                Total
-                            </h3>
-                            <div className="w-20 p-1 flex justify-center items-center border-2 border-solid border-text rounded-lg">
-                                <span className="total text-text">
-                                    ${parseInt(actualProduct.total * quantity)}
-                                </span>
-                            </div>
-                        </div>        
-                    </div>
+                    <SubComponentPag setColor={setColor} setQuantity={setQuantity} quantity={quantity}></SubComponentPag>
+
                     <ButtonPag 
                         text="Agregar a la lista de deseo" 
                         onClick={addToWishList} 

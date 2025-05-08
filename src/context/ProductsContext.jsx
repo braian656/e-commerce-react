@@ -2,13 +2,17 @@
 import { useState, useEffect , useMemo} from "react"
 import { contextProducts } from "./context"
 
+// Verificar uso del los useHooks - check
 
 const ProductsContext = ({children})=>{
+
 
     const [ productData, setProductData ]= useState([])
 
 
+
     const totalProducts = productData.length; /*Cantidad de Prodcutos*/
+
     const [productsPerPage, setProductsPerPage] = useState(6); /*Cantidad de productos que se van a mostrar*/
     const [currentPage, setCurrentPage] = useState(1) /* Pagina actual De la paginacion */
 
@@ -16,6 +20,7 @@ const ProductsContext = ({children})=>{
     const firstIndex = lastIndex - productsPerPage
 
     const [openPagProduct, setOpenPagProduct] = useState(false)
+    
     // actualProduct, muestra la informacion del producto en una pag nueva
     const [actualProduct, setActualProduct] = useState({
       index : '',
@@ -29,12 +34,15 @@ const ProductsContext = ({children})=>{
 
     const [selectingPrice, setSelectingPrice] = useState(null) /*Selecciona el precio, luego lo usa total price, para sumar y dar el total*/
     // const [productCart, setProductCart] = useState([]);
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState('')
     const [userSelectedCategory, setUserSelectedCategory] = useState(['All'])
     const [someErr, setSomeErr] = useState('')
     const [purchasedProducts , setPurchasedProducts] = useState([])
     const [picUser, setPicUser] = useState('/images/profile.png')
     
+
+
+
     const getApiProducts = async()=>{
      try{
       const data = await fetch('https://fakestoreapi.com/products')
@@ -42,8 +50,10 @@ const ProductsContext = ({children})=>{
 
       
       setProductData(prod)
-      // console.log(prod)
 
+      console.log(prod)
+      // console.log(prod)
+      // categories es un array de elementos, no entiendo por que, no me acuerdo
       prod.forEach(element => {
         return setCategories(element.category)
       });
@@ -55,11 +65,15 @@ const ProductsContext = ({children})=>{
     }
 
     useEffect(()=>{
+
+      // la api solo se llama una vez, sin el arr de dependencia esto no funciona
       getApiProducts()
 
     },[])
 
     const pagProduct = (_id, _image, _product, _description, _price,_category, _rating)=>{
+ 
+
       setActualProduct(({
         index : _id,
         image : _image,
@@ -100,7 +114,6 @@ const ProductsContext = ({children})=>{
       return sumProducts
     }, [totalPrice]);
     
-    
     useEffect(() => {
 
       if (selectingPrice !== null && !totalPrice.includes(selectingPrice)) {
@@ -112,10 +125,11 @@ const ProductsContext = ({children})=>{
     }, [selectingPrice, totalPrice]); 
     // Añadimos totalPrice como dependencia
     
-    console.log(userSelectedCategory)
+    // console.log(userSelectedCategory)
+
+    console.log('valores del provider',activeItemId)
 
 
-   
     return(
 
         <contextProducts.Provider

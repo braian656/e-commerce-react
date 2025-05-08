@@ -3,10 +3,12 @@ import TableItems from "./TableItems"
 import { useEffect, useContext, useState } from "react"
 
 
+// Verificar uso del los useHooks - check
 
 function Table(){
+
+    console.log('COMPONENT TABLE')
     const {purchasedProducts} = useContext(contextProducts)
-    const isEmpty = purchasedProducts.length !== 0 ? 'flex' :  'hidden'
     const classTitle = purchasedProducts.length !== 0 ? 'hidden' : 'flex'
 
 

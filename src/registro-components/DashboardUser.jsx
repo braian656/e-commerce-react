@@ -1,14 +1,30 @@
+// hooks
 import { useEffect, useContext, useState } from "react"
-import ButtonPag from "../buttons-component/ButtonPag"
+
+
+// icons
+import { CircleUserRound, ShoppingBasket } from "lucide-react"
+
+// components
 import Table from "./Table"
 import InfoUser from "./InfoUser"
-import { CircleUserRound, ShoppingBasket } from "lucide-react"
+import ButtonPag from "../buttons-component/ButtonPag"
+
+
+
+// providers
 import { contextProducts } from "../context/context"
 
 
+// Verificar uso del los useHooks - check
 
-function DashboardUser({setSliderActive,setUserLog, actualUser,setActualUser}){
+function DashboardUser({setUserLog, actualUser,setActualUser}){
+
+
+    console.log('COMPONENTE DASHBOARD USER')
     const {picUser} = useContext(contextProducts)
+
+    
     const [sectionPurchaseHistory, setSectionPurchaseHistory] = useState(false)
 
  
@@ -32,16 +48,20 @@ function DashboardUser({setSliderActive,setUserLog, actualUser,setActualUser}){
     }
 
     function getPurchaseHistory(){
-        console.log('Mostrare todas las compras realizadas')
+        console.log('COMPRAR REALIZADAS')
         setSectionPurchaseHistory(true)
     }
     function getSectionUser(){
-      console.log('mostrar seccion de usuario')
+      console.log('SECTION USUARIO')
       setSectionPurchaseHistory(false)
     }
+
     useEffect(()=>{
-        setSliderActive(false)
+
+        // setSliderActive(false)
+        
     }, [])
+
 
     console.log(actualUser)
 
@@ -51,7 +71,7 @@ function DashboardUser({setSliderActive,setUserLog, actualUser,setActualUser}){
           <div className="content-user bg-white rounded-lg">
           <div className="image">
               <div className="image-user">
-              <img src={picUser} alt=""/>
+              <img src={picUser} alt="" loading="lazy"/>
               </div>
               <h1 className="name-user">
               {actualUser.name + ' ' + actualUser.surname}
@@ -73,7 +93,9 @@ function DashboardUser({setSliderActive,setUserLog, actualUser,setActualUser}){
             <aside className="content-op">
                 
                 <button 
-                className={`text-center ${!sectionPurchaseHistory ? 'active' : ''}`} 
+                className={
+                  `text-center ${!sectionPurchaseHistory ? 'active' : ''}`
+                } 
                 onClick={getSectionUser}>
                   <CircleUserRound 
                   className="icon-scale"
@@ -86,7 +108,9 @@ function DashboardUser({setSliderActive,setUserLog, actualUser,setActualUser}){
                 </button>
 
                 <button 
-                className={`text-center ${sectionPurchaseHistory ? 'active' : ''}`} 
+                className={
+                  `text-center ${sectionPurchaseHistory ? 'active' : ''}`
+                } 
                 onClick={getPurchaseHistory}>
                   <ShoppingBasket 
                   className="icon-scale" 
